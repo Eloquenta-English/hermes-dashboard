@@ -8,7 +8,103 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 
-:root{--bg:#0a0a0f;--bg-panel:#111118;--bg-card:#16161f;--bg-hover:#1e1e2a;--bg-active:#252535;--accent:#6c5ce7;--accent-dim:rgba(108,92,231,.12);--accent-glow:rgba(108,92,231,.3);--accent2:#22d3ee;--cyan:#22d3ee;--cyan-dim:rgba(34,211,238,.1);--text:#e8e8f0;--text-dim:#8888a0;--text-muted:#55556a;--border:#2a2a3a;--border-light:#333348;--success:#00b894;--warn:#fdcb6e;--error:#e17055;--emerald:#34d399;--amber:#fbbf24;--violet:#a78bfa;--rose:#fb7185;--sbw:260px;--rbw:300px}
+/* ═══ HERMES IDE DESIGN SYSTEM ═══ */
+:root{
+  /* Surfaces — Frosted Dark from Hermes IDE */
+  --bg-0:#1a1c20;
+  --bg-1:#20232a;
+  --bg-2:#292d35;
+  --bg-3:#353a44;
+  --bg-hover:#292d35;
+  --bg-active:#48484a;
+
+  /* Ink */
+  --text-0:#f5f5f7;
+  --text-1:#d6d6d9;
+  --text-2:#8e8e93;
+  --text-3:#5c5c61;
+
+  /* Voice */
+  --voice-user:#ffb340;
+  --voice-agent:#0a84ff;
+
+  /* Legacy aliases */
+  --bg:var(--bg-0);
+  --bg-panel:var(--bg-1);
+  --bg-card:var(--bg-2);
+  --text:var(--text-0);
+  --text-dim:var(--text-2);
+  --text-muted:var(--text-3);
+  --accent:var(--voice-agent);
+  --accent-bright:#5ea7ff;
+  --accent-dim:rgba(10,132,255,.18);
+  --brass:var(--voice-user);
+  --brass-bright:#ffc870;
+  --brass-dim:rgba(255,179,64,.18);
+
+  /* Semantic */
+  --success:#30d158;
+  --success-bright:#5cdf7c;
+  --success-dim:rgba(48,209,88,.18);
+  --warning:#ffb340;
+  --warning-bright:#ffc870;
+  --warning-dim:rgba(255,179,64,.18);
+  --danger:#ff453a;
+  --danger-bright:#ff6f66;
+  --danger-dim:rgba(255,69,58,.18);
+  --info:#64d2ff;
+  --green:var(--success);
+  --green-dim:var(--success-dim);
+  --red:var(--danger);
+  --red-dim:var(--danger-dim);
+  --yellow:var(--warning);
+  --violet:#bf5af2;
+  --violet-dim:rgba(191,90,242,.18);
+  --error:var(--danger);
+
+  /* Rules */
+  --border:#2d2d2f;
+  --border-light:#3a3a3c;
+
+  /* Typography */
+  --font-ui:"Inter Tight",Inter,system-ui,-apple-system,sans-serif;
+  --font-code:"JetBrains Mono",ui-monospace,"SF Mono","Fira Code",Menlo,monospace;
+
+  /* Spacing */
+  --sbw:260px;
+  --rbw:300px;
+}
+
+/* Console / Terminal Styles — matching Hermes IDE */
+.terminal-pane-wrapper{flex:1;position:relative;overflow:hidden;background:var(--bg-0)}
+.terminal-viewport{width:100%;height:100%;padding:4px 0 0 4px;box-sizing:border-box;overflow:hidden}
+.terminal-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:5;background:var(--bg-0)}
+.terminal-loading-text{font-size:14px;color:var(--text-3)}
+.loading-spinner{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Session tabs — Hermes IDE sliding underline */
+.session-tabs{display:flex;align-items:center;background:var(--bg-1);border-bottom:1px solid var(--border);height:28px;padding:0 4px;flex-shrink:0;user-select:none;position:relative;overflow-x:auto}
+.session-tabs::-webkit-scrollbar{height:0}
+.session-tabs::after{content:"";position:absolute;bottom:0;left:var(--tab-x,0);width:var(--tab-w,0);height:2px;background:var(--voice-user,var(--accent));border-radius:2px 2px 0 0;transition:left .2s,width .2s;pointer-events:none}
+.session-tab{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;font-size:11px;font-family:inherit;font-weight:500;letter-spacing:-.01em;color:var(--text-2);background:transparent;border:none;cursor:pointer;transition:background .15s,color .15s;height:100%;white-space:nowrap}
+.session-tab:hover{background:var(--bg-2);color:var(--text-1)}
+.session-tab-active{color:var(--text-0)}
+.session-tab .tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* Console output — matching Hermes IDE terminal */
+.console-output{flex:1;overflow-y:auto;padding:8px 12px;font-family:var(--font-code);font-size:12px;line-height:1.5;color:var(--text-1);background:var(--bg-0);white-space:pre-wrap;word-break:break-all}
+.console-output::-webkit-scrollbar{width:4px}
+.console-output::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.console-output .output-line{padding:1px 0}
+.console-output .output-line:hover{background:rgba(255,255,255,.02)}
+.console-output .timestamp{color:var(--text-3);font-size:10px;margin-right:8px}
+.console-output .agent-name{font-weight:600}
+
+/* Editor — matching Hermes IDE */
+.html-editor{flex:1;background:var(--bg-0);color:var(--text-1);border:none;padding:12px;font-family:var(--font-code);font-size:13px;line-height:1.6;resize:none;outline:none;white-space:pre;overflow:auto;tab-size:2}
+.html-editor:focus{box-shadow:inset 0 0 0 1px var(--accent-dim)}
+
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:16px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
@@ -397,9 +493,91 @@ select.si{cursor:pointer}
 #modal-box .mi:focus{border-color:var(--accent)}
 #modal-box .mb{display:flex;gap:6px;justify-content:flex-end}
 
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+/* ═══ CONSOLE TABS ═══ */
+.console-tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 10px; font-size: 12px; font-weight: 600;
+  color: var(--text-dim); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all .15s;
+  white-space: nowrap; flex-shrink: 0; border-radius: 4px 4px 0 0;
+  position: relative;
+}
+.console-tab:hover { color: var(--text); background: var(--bg-hover); }
+.console-tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-active); }
+.console-tab .ct-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.console-tab .ct-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+.console-tab .ct-close {
+  width: 12px; height: 12px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; margin-left: 2px; opacity: 0; transition: opacity .15s;
+}
+.console-tab:hover .ct-close { opacity: 1; }
+.console-tab .ct-close:hover { background: var(--error); color: #fff; }
+
+/* Console Panel */
+.console-panel {
+  flex: 1; display: none; flex-direction: column; overflow: hidden;
+  background: #0a0a0f; font-family: 'JetBrains Mono', 'Consolas', monospace;
+}
+.console-panel.active { display: flex; }
+.console-output {
+  flex: 1; overflow-y: auto; padding: 8px 12px; font-size: 12px; line-height: 1.5;
+  color: #c9d1d9; white-space: pre-wrap; word-break: break-word;
+}
+.console-output .log-line { display: flex; gap: 8px; }
+.console-output .log-time { color: #55556a; flex-shrink: 0; }
+.console-output .log-agent { font-weight: 600; flex-shrink: 0; min-width: 80px; }
+.console-output .log-msg { flex: 1; }
+.console-output .log-ok .log-msg { color: #00b894; }
+.console-output .log-err .log-msg { color: #e17055; }
+.console-output .log-info .log-msg { color: #8888a0; }
+.console-output .log-warn .log-msg { color: #fdcb6e; }
+
+.console-status-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 12px; background: var(--bg-panel);
+  border-top: 1px solid var(--border); font-size: 10px; color: var(--text-muted);
+  flex-shrink: 0;
+}
+.console-status-bar .cs-dot { width: 6px; height: 6px; border-radius: 50%; }
+.console-status-bar .cs-dot.live { background: #00b894; box-shadow: 0 0 4px #00b894; animation: pulse 2s infinite; }
+.console-status-bar .cs-dot.offline { background: #55556a; }
+
+/* Console Input Row */
+.console-input-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; background: var(--bg-panel);
+  border-top: 1px solid var(--border); flex-shrink: 0;
+}
+.console-input-row .terminal-input {
+  flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 10px; border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace; font-size: 13px; outline: none;
+}
+.console-input-row .terminal-input:focus { border-color: var(--accent); }
+.console-input-row .cs-btn {
+  background: var(--accent); color: #fff; border: none;
+  padding: 5px 12px; border-radius: 4px; font-size: 11px;
+  font-weight: 600; cursor: pointer; white-space: nowrap;
+}
+.console-input-row .cs-btn:hover { opacity: .85; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
+
+
+/* Console / Agent Terminal */
+#ps-tabs::-webkit-scrollbar{height:0}
+#ps-output::-webkit-scrollbar{width:4px}
+#ps-output::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+#ps-output .agent-name{color:var(--accent);font-weight:600}
+#ps-output .timestamp{color:#556680;font-size:10px}
+#ps-output .output-line{padding:1px 0}
+#ps-output .output-line:hover{background:rgba(255,255,255,.02)}
+
+.ps-tab:hover{color:var(--text)!important;background:var(--bg-hover)}
 
 .os-tree{padding:0 0 4px 0}
 .os-tree-group-title{padding:4px 14px 2px;font-size:8px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
@@ -410,6 +588,55 @@ select.si{cursor:pointer}
 .os-tree-label{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .os-tree-agent{font-size:8px;padding:1px 4px;border-radius:3px;font-weight:600}
 .os-tree-role{font-size:8px;color:var(--text-dim);margin-left:auto}
+
+
+/* ═══ PROJECT CARDS — EXCITED WOBBLE ═══ */
+.proj-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;padding:4px}
+.proj-card{
+  position:relative;
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  overflow:hidden;
+}
+.proj-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--pc-color) 0%,transparent 60%);
+  opacity:.08;
+  transition:opacity .3s;
+}
+.proj-card:hover::before{opacity:.18}
+.proj-card:hover{
+  transform:translateY(-6px) rotate(-1deg) scale(1.03);
+  border-color:var(--pc-color);
+  box-shadow:0 12px 32px rgba(0,0,0,.5),0 0 0 1px var(--pc-color);
+  animation:wobble .6s ease-in-out;
+}
+@keyframes wobble{
+  0%{transform:translateY(-6px) rotate(-1deg) scale(1.03)}
+  25%{transform:translateY(-8px) rotate(2deg) scale(1.05)}
+  50%{transform:translateY(-6px) rotate(-1.5deg) scale(1.04)}
+  75%{transform:translateY(-8px) rotate(1deg) scale(1.05)}
+  100%{transform:translateY(-6px) rotate(-1deg) scale(1.03)}
+}
+.proj-card:active{transform:translateY(-2px) scale(.98);transition-duration:.1s}
+.proj-card-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;position:relative}
+.proj-card-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 var(--pc-color)}50%{box-shadow:0 0 0 6px transparent}}
+.proj-card-name{font-size:13px;font-weight:600;flex:1;color:var(--text-0)}
+.proj-card-status{font-size:9px;padding:2px 8px;border-radius:8px;background:var(--bg-3);color:var(--text-2);text-transform:uppercase;letter-spacing:.5px}
+.proj-card-desc{font-size:11px;color:var(--text-2);line-height:1.4;margin-bottom:12px;position:relative;min-height:32px}
+.proj-card-progress{margin-bottom:10px;position:relative}
+.proj-card-progress-bar{height:4px;background:var(--bg-3);border-radius:2px;overflow:hidden}
+.proj-card-progress-fill{height:100%;background:var(--pc-color);border-radius:2px;transition:width .5s ease}
+.proj-card-stats{display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);position:relative}
+.proj-card-agents{display:flex;gap:3px;margin-top:10px;position:relative}
+.proj-card-agent{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border:1px solid var(--border)}
 
 .proj-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
 
@@ -508,6 +735,7 @@ select.si{cursor:pointer}
     <nav class="os-sidebar-nav" id="osNav">
       <div class="os-nav-section">
         <div class="os-nav-section-title">Core</div>
+        <a class="os-nav-item" data-os-page="setup"><span class="os-nav-icon">&#x2728;</span><span>Setup</span><span class="os-nav-badge" id="setupBadge">!</span></a>
         <a class="os-nav-item active" data-os-page="dashboard"><span class="os-nav-icon">&#x25A0;</span><span>Dashboard</span></a>
         <a class="os-nav-item" data-os-page="goals"><span class="os-nav-icon">&#x25CE;</span><span>Goals</span><span class="os-nav-badge" id="projCount">7</span></a>
         <a class="os-nav-item" data-os-page="board"><span class="os-nav-icon">&#x25A3;</span><span>Board</span></a>
@@ -526,6 +754,7 @@ select.si{cursor:pointer}
         <div class="os-nav-section-title">Memory</div>
         <a class="os-nav-item" data-os-page="short-term"><span class="os-nav-icon">&#x25C6;</span><span>Short-Term</span></a>
         <a class="os-nav-item" data-os-page="long-term"><span class="os-nav-icon">&#x25C7;</span><span>Long-Term</span></a>
+        <a class="os-nav-item" data-os-page="plans"><span class="os-nav-icon">&#x25A3;</span><span>Plans</span></a>
         <a class="os-nav-item" data-os-page="knowledge"><span class="os-nav-icon">&#x25A4;</span><span>Knowledge</span></a>
       </div>
       <div class="os-nav-section">
@@ -535,11 +764,6 @@ select.si{cursor:pointer}
         <a class="os-nav-item" data-os-page="help"><span class="os-nav-icon">&#x25B3;</span><span>Help</span></a>
       </div>
     </nav>
-    <div class="os-sidebar-footer">
-      <div style="font-size:9px;color:var(--text-dim);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Projects</div>
-      <div id="projExplorer" style="max-height:200px;overflow-y:auto"></div>
-      <div style="font-size:9px;color:var(--text-muted);margin-top:4px">v3.1 — Hermes Dashboard</div>
-    </div>
   </div>
 
   <div id="center">
@@ -549,26 +773,55 @@ select.si{cursor:pointer}
         <span id="ws-back" onclick="closeWorkspace()">&#8592; Back</span>
         <span id="ws-proj-name"></span>
         <span id="ws-proj-url"></span>
+        <span style="margin-left:auto;display:flex;gap:6px">
+          <button class="cbtn" onclick="assignProjectHtml()" style="font-size:9px;padding:2px 8px">Assign HTML</button>
+          <button class="cbtn" onclick="updatePlanFile()" style="font-size:9px;padding:2px 8px">Update Plan</button>
+        </span>
       </div>
-      <div id="ws-tabs">
-        <div class="ws-tab active" data-tab="viewer" onclick="switchWsTab('viewer')">&#x1F310; Viewer</div>
-      </div>
-      <div id="ws-content">
-        <div id="html-viewer-panel" class="active">
-          <div id="html-viewer-toolbar">
-            <input type="text" id="html-viewer-url" placeholder="Project URL..." onkeydown="if(event.key==='Enter')reloadViewer()">
-            <button class="cbtn" onclick="reloadViewer()" style="font-size:9px;padding:2px 6px">&#8635; Reload</button>
-            <button class="cbtn" onclick="window.open(document.getElementById('html-viewer-url').value,'_blank')" style="font-size:9px;padding:2px 6px">&#x2197; Open</button>
+
+      <!-- 3-Panel Layout: Viewer + PowerShell + Editor -->
+      <div id="ws-3panel" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+
+        <!-- Panel 1: Viewer -->
+        <div id="ws-viewer-panel" style="height:35%;min-height:120px;display:flex;flex-direction:column;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:4px;padding:3px 8px;background:var(--bg-panel);border-bottom:1px solid var(--border);flex-shrink:0">
+            <span style="font-size:10px;font-weight:600;color:var(--text-dim)">VIEWER</span>
+            <input id="html-viewer-url" placeholder="Project URL..." style="flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:2px 6px;border-radius:3px;font-size:11px;outline:none">
+            <button class="cbtn" onclick="reloadViewer()" style="font-size:9px;padding:1px 6px">&#8635;</button>
+            <button class="cbtn" onclick="document.getElementById('html-viewer-url').value='';document.getElementById('html-viewer-frame').src=''" style="font-size:9px;padding:1px 6px">Clear</button>
           </div>
-          <iframe id="html-viewer-frame" sandbox="allow-same-origin allow-scripts allow-forms allow-popups"></iframe>
+          <iframe id="html-viewer-frame" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" style="flex:1;border:none;background:#fff;display:none"></iframe>
+          <div id="html-viewer-empty" style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px">No HTML assigned. Click "Assign HTML" to browse.</div>
         </div>
+
+        <!-- Panel 2: Console (Hermes IDE style) -->
+        <div id="ws-ps-panel" style="height:35%;min-height:120px;display:flex;flex-direction:column;border-bottom:1px solid var(--border)">
+          <div class="session-tabs" id="ps-tabs"></div>
+          <div class="console-output" id="ps-output">
+            <span style="color:var(--text-3)">Select an agent tab to start a session.</span>
+          </div>
+        </div>
+
+        <!-- Panel 3: HTML Editor -->
+        <div id="ws-editor-panel" style="flex:1;display:flex;flex-direction:column;min-height:80px">
+          <div style="display:flex;align-items:center;gap:4px;padding:3px 8px;background:var(--bg-panel);border-bottom:1px solid var(--border);flex-shrink:0">
+            <span style="font-size:10px;font-weight:600;color:var(--text-dim)">EDITOR</span>
+            <span id="editor-filename" style="font-size:10px;color:var(--text-muted);flex:1">No file open</span>
+            <button class="cbtn" onclick="editorOpen()" style="font-size:9px;padding:1px 6px">Open</button>
+            <button class="cbtn" onclick="editorSave()" style="font-size:9px;padding:1px 6px">Save</button>
+            <button class="cbtn" onclick="editorSaveAs()" style="font-size:9px;padding:1px 6px">Save As</button>
+          </div>
+          <textarea class="html-editor" id="html-editor" placeholder="Open an HTML file to edit..."></textarea>
+        </div>
+
       </div>
     </div>
-  </div>
+
+
 
   <div id="rightbar">
     <div class="rtabs">
-      <div class="rtab active" data-t="team">Team</div>
+      <div class="rtab active" data-t="team">Projects</div>
       <div class="rtab" data-t="plans">Plans</div>
       <div class="rtab" data-t="timetable">Activity</div>
     </div>
@@ -600,7 +853,9 @@ var S={
   projects:loadProjects(),agentConfigs:loadAgentConfigs(),workflows:loadWorkflows(),ideas:loadIdeas(),
   chatHistories:{},settings:loadSettings(),
   openProjs:[],activeTaskId:null,
-  wsTab:'viewer',wsChatHistories:{}
+  wsTab:'viewer',wsChatHistories:{},
+  knowledgeFeeds:loadJSON('hd_feeds',null),
+  plans:loadJSON('hd_plans',[])
 };
 
 function loadJSON(key,fb){try{var v=JSON.parse(localStorage.getItem(key));return v&&v.length!==undefined?v:fb;}catch(e){return fb;}}
@@ -611,7 +866,7 @@ function loadProjects(){
     {id:"p1",name:"WTE Platform",color:"var(--accent)",status:"active",
       img:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop",
       desc:"English tutoring platform with video calls, payments, and speaking lessons.",
-      url:"https://williamthomason.github.io",
+      url:"https://williamthomason.github.io/wte-site/",
       kanban:{todo:[{id:"t1",title:"Design speaking assessment UI",priority:"high"},{id:"t2",title:"Add payment integration",priority:"medium"}],
         doing:[{id:"t3",title:"Fix lesson scroll bug",priority:"high",assignee:"a2"}],
         review:[{id:"t4",title:"Review business debate vocab",priority:"low",assignee:"a1"}],
@@ -619,14 +874,14 @@ function loadProjects(){
       agents:["a1","a2","a3","a4","a5","a6","a7"]},
     {id:"p2",name:"OobzoO DAW",color:"var(--success)",status:"active",
       img:"https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=250&fit=crop",
-      desc:"Browser-based digital audio workstation.",url:"",
+      desc:"Browser-based digital audio workstation.",url:"../String-Theory/index.html",
       kanban:{todo:[{id:"t6",title:"Sampler & audio import",priority:"high"},{id:"t7",title:"Sample slicing tool",priority:"medium"}],
         doing:[{id:"t8",title:"Loop player prototype",priority:"high",assignee:"a1"}],review:[],
         done:[{id:"t9",title:"Project scaffold",priority:"low",assignee:"a3"}]},
       agents:["a1","a3","a5","a7","a8","a9","a10"]},
     {id:"p3",name:"Agentic OS",color:"var(--amber)",status:"active",
       img:"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop",
-      desc:"Multi-agent orchestration platform.",url:"https://williamthomason.github.io/ESL-Edutech/Agentic-OS/",
+      desc:"Multi-agent orchestration platform.",url:"https://eloquenta-english.github.io/Agentic-OS/",
       kanban:{todo:[{id:"t10",title:"Kanban drag & drop",priority:"high"}],
         doing:[{id:"t11",title:"Agent config panel",priority:"high",assignee:"a2"}],
         review:[{id:"t12",title:"Memory galaxy 3D view",priority:"medium",assignee:"a4"}],
@@ -634,30 +889,30 @@ function loadProjects(){
       agents:["a2","a4","a6","a8","a10","a11","a12"]},
     {id:"p4",name:"RESONANCE Game",color:"var(--rose)",status:"active",
       img:"https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=250&fit=crop",
-      desc:"Music-driven adventure game.",url:"",
+      desc:"Music-driven adventure game.",url:"../TEMU-Sonic/index.html",
       kanban:{todo:[{id:"t14",title:"Story bible draft",priority:"high"},{id:"t15",title:"Visual style guide",priority:"medium"}],
         doing:[{id:"t16",title:"DAW integration spec",priority:"high",assignee:"a1"}],review:[],done:[{id:"t17",title:"Game design doc",priority:"low",assignee:"a5"}]},
       agents:["a1","a5","a7","a9","a11","a13","a14"]},
     {id:"p5",name:"ROOT Token",color:"var(--cyan)",status:"pending",
       img:"https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=250&fit=crop",
-      desc:"Blockchain token concept.",url:"",
+      desc:"Blockchain token concept.",url:"../ROOT-Token/index.html",
       kanban:{todo:[{id:"t18",title:"Token economics model",priority:"high"}],doing:[],review:[],done:[{id:"t19",title:"Concept deck",priority:"low",assignee:"a6"}]},
       agents:["a6","a8","a10","a12","a14","a15","a16"]},
     {id:"p6",name:"MUNUMELOO",color:"var(--violet)",status:"pending",
       img:"https://images.unsplash.com/photo-1535295972055-1c762f4483e5?w=400&h=250&fit=crop",
-      desc:"FPS adventure game with time travel.",url:"",
+      desc:"FPS adventure game with time travel.",url:"../MUNUMELOO/index.html",
       kanban:{todo:[{id:"t20",title:"Character design",priority:"high"}],doing:[],review:[],done:[]},
       agents:["a3","a7","a11","a13","a15","a17","a18"]},
     {id:"p7",name:"Video Call",color:"var(--emerald)",status:"active",
       img:"https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=400&h=250&fit=crop",
-      desc:"PeerJS p2p video calling.",url:"https://williamthomason.github.io/video-call/",
+      desc:"PeerJS p2p video calling.",url:"https://eloquenta-english.github.io/video-call/",
       kanban:{todo:[],doing:[{id:"t21",title:"Screen share fix",priority:"medium",assignee:"a4"}],review:[],
         done:[{id:"t22",title:"PeerJS integration",priority:"high",assignee:"a4"}]},
       agents:["a4","a8","a12","a16","a18","a19","a20"]},
     {id:"p8",name:"VocabForge",color:"#22d3ee",status:"active",
       img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=250&fit=crop",
       desc:"Gamified vocabulary learning app with Cambridge words, memory games, typing challenges, and grammar drills.",
-      url:"VocabForge/index.html",
+      url:"../VocabForge/index.html",
       kanban:{todo:[{id:"t23",title:"Design system + CSS theme",priority:"high"},
         {id:"t24",title:"Vocabulary data (500 words A1-C1)",priority:"high"},
         {id:"t25",title:"Flashcard game",priority:"high"},
@@ -900,48 +1155,7 @@ function renderWsTabs(proj){
   var tabs=$('ws-tabs');
   var viewerTab=tabs.querySelector('[data-tab="viewer"]');
   tabs.innerHTML='';tabs.appendChild(viewerTab);
-
-  // ── Orchestrator chat tab (always first) ──
-  var orchId='a1';
-  var orchAgent=getAgentById(orchId);
-  if(orchAgent){
-    var orchTab=document.createElement('div');
-    orchTab.className='ws-tab active';
-    orchTab.setAttribute('data-tab','agent-'+orchId);
-    orchTab.innerHTML='<span class="tab-dot" style="background:'+orchAgent.color+'"></span>'+orchAgent.name+' <span style="font-size:8px;color:var(--text-dim);margin-left:2px">ORCH</span>';
-    orchTab.onclick=function(){switchWsTab('agent-'+orchId);};
-    tabs.appendChild(orchTab);
-    if(!$('chat-panel-'+orchId)){
-      var panel=document.createElement('div');
-      panel.className='agent-chat-panel active';
-      panel.id='chat-panel-'+orchId;
-      panel.innerHTML='<div class="agent-chat-header"><div class="agent-chat-avatar" style="background:'+orchAgent.color+'22;color:'+orchAgent.color+'">'+orchAgent.name.charAt(0)+'</div><div class="agent-chat-name">'+orchAgent.name+'</div><div class="agent-chat-model">'+orchAgent.model+' · Orchestrator</div></div><div class="agent-chat-messages" id="chat-msgs-'+orchId+'"></div><div class="agent-chat-input-area"><input type="text" class="agent-chat-input" id="chat-input-'+orchId+'"><button class="agent-chat-send" onclick="sendAgentChat(\''+orchId+'\')">&#10148;</button></div>';
-      $('ws-content').appendChild(panel);
-    }
-  }
-
-  // ── Per-agent chat tabs ──
-  (proj.agents||[]).forEach(function(aid){
-    if(aid===orchId)return; // skip orchestrator, already added
-    var ag=getAgentById(aid);if(!ag)return;
-    var tab=document.createElement('div');
-    tab.className='ws-tab';
-    tab.setAttribute('data-tab','agent-'+aid);
-    tab.innerHTML='<span class="tab-dot" style="background:'+ag.color+'"></span>'+ag.name;
-    var close=document.createElement('span');
-    close.className='ws-tab-close';close.innerHTML='&#10005;';
-    close.onclick=function(e){e.stopPropagation();closeWsTab(aid);};
-    tab.appendChild(close);
-    tab.onclick=function(e){if(e.target===close)return;switchWsTab('agent-'+aid);};
-    tabs.appendChild(tab);
-    if(!$('chat-panel-'+aid)){
-      var panel=document.createElement('div');
-      panel.className='agent-chat-panel';
-      panel.id='chat-panel-'+aid;
-      panel.innerHTML='<div class="agent-chat-header"><div class="agent-chat-avatar" style="background:'+ag.color+'22;color:'+ag.color+'">'+ag.name.charAt(0)+'</div><div class="agent-chat-name">'+ag.name+'</div><div class="agent-chat-model">'+ag.model+'</div></div><div class="agent-chat-messages" id="chat-msgs-'+aid+'"></div><div class="agent-chat-input-area"><input type="text" class="agent-chat-input" id="chat-input-'+aid+'"><button class="agent-chat-send" onclick="sendAgentChat(\''+aid+'\')">&#10148;</button></div>';
-      $('ws-content').appendChild(panel);
-    }
-  });
+  // Console tabs are built separately by buildConsoleTabs()
 }
 
 function switchWsTab(tabId){
@@ -1100,9 +1314,11 @@ function renderOSPage(id){
   else if(id==='exceptions')renderExceptionsPage(pane);
   else if(id==='short-term')renderShortTermPage(pane);
   else if(id==='long-term')renderLongTermPage(pane);
+  else if(id==='plans')renderPlansPage(pane);
   else if(id==='knowledge')renderKnowledgePage(pane);
   else if(id==='models')renderModelsPage(pane);
   else if(id==='cost')renderCostPage(pane);
+  else if(id==='setup')renderSetupWizard(pane);
   else if(id==='help')renderHelpPage(pane);
   else if(id==='ideas')renderIdeasPage(pane);
   else{pane.innerHTML='<div class="os-page active"><div class="os-page-header"><h1>'+id+'</h1></div><div class="os-card"><p style="color:var(--text-muted);font-size:11px;text-align:center;padding:20px">Page coming soon.</p></div></div>';}
@@ -1136,6 +1352,7 @@ function renderDashboardPage(c){
     h+='<div style="width:60px;height:4px;background:var(--bg);border-radius:2px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+proj.color+'"></div></div>';
     h+='<span style="font-size:9px;color:var(--text-dim);width:40px;text-align:right">'+done+'/'+total+'</span></div>';
   });
+  h+='</div></div>';
   h+='</div></div>';
   c.innerHTML=h;
 }
@@ -1247,154 +1464,220 @@ function renderWorkflowsPage(c){
 // ═══ TERMINAL / CLI PAGE ═══
 
 function renderTerminalPage(c){
-  var h='<div class="os-page active"><div class="os-page-header"><h1>Terminal</h1><p>Hermes CLI — run commands directly</p></div>';
-  h+='<div class="terminal-wrap" id="cliTerminal">';
-  h+='<div class="terminal-header">';
-  h+='<span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span class="terminal-dot green"></span>';
-  h+='<span class="terminal-title">hermes — bash — 80x24</span>';
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  var model=proj&&proj.agents?getAgentById(proj.agents[0]):null;
+  var modelName=model?model.model:'openrouter/owl-alpha';
+  var projName=proj?proj.name:'No project';
+  var projId=proj?proj.id:'none';
+
+  var h='<div class="os-page active"><div class="os-page-header"><h1>Terminal</h1><p>Real PowerShell — run hermes, python, or any command</p></div>';
+
+  // xterm.js container
+  h+='<div style="display:flex;flex-direction:column;flex:1;overflow:hidden;background:#0a0a0f">';
+
+  // Terminal header bar
+  h+='<div style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:var(--bg-panel);border-bottom:1px solid var(--border);flex-shrink:0">';
+  h+='<div id="termStatusDot" style="width:8px;height:8px;border-radius:50%;background:var(--text-muted)"></div>';
+  h+='<span id="termStatusText" style="font-size:10px;color:var(--text-dim)">Connecting...</span>';
+  h+='<span style="flex:1"></span>';
+  h+='<span style="font-size:9px;color:var(--text-muted)">'+projName+'</span>';
+  h+='<span style="font-size:9px;color:var(--accent)">'+modelName+'</span>';
+  h+='<button class="cbtn" style="font-size:9px;padding:2px 8px" onclick="termRestart()">Restart</button>';
+  h+='<button class="cbtn" style="font-size:9px;padding:2px 8px" onclick="termClear()">Clear</button>';
   h+='</div>';
-  h+='<div class="terminal-body" id="termBody">';
-  h+='<div class="term-line"><span class="term-output term-info">Hermes CLI v3.1 — Type "help" for available commands.</span></div>';
-  h+='<div class="term-line"><span class="term-output term-info">Connected to: '+(S&&S.projects&&S.projects[0]?S.projects[0].name:'No project selected')+'</span></div>';
-  h+='</div>';
-  h+='<div class="terminal-input-area">';
-  h+='<span class="term-prompt">hermes&gt;</span>';
-  h+='<input type="text" class="terminal-input" id="cliInput" placeholder="Enter command..." autocomplete="off" spellcheck="false">';
-  h+='</div>';
-  h+='<div class="terminal-status-bar">';
-  h+='<span id="cliStatus">Ready</span>';
-  h+='<span>Hermes Dashboard v3.1</span>';
-  h+='</div>';
-  h+='</div>';
-  h+='<div class="term-hint">Quick commands: <strong>help</strong> · <strong>status</strong> · <strong>agents</strong> · <strong>run [task]</strong> · <strong>projects</strong> · <strong>clear</strong></div>';
-  h+='</div>';
+
+  // xterm.js mount point
+  h+='<div id="xterm-mount" style="flex:1;overflow:hidden;padding:4px"></div>';
+
+  h+='</div></div>';
+
   c.innerHTML=h;
 
-  // Focus input
-  var inp=document.getElementById('cliInput');
-  if(inp)inp.focus();
+  // Initialize xterm.js after DOM update
+  setTimeout(function(){initTerminal(projId, projName, modelName);},100);
+}
 
-  // Command history
-  var cmdHistory=[];
-  var historyIdx=-1;
+var _termSocket=null;
+var _termInstance=null;
+var _termFitAddon=null;
+var _termCurrentProject=null;
 
-  // Handle Enter key
-  if(inp){
-    inp.addEventListener('keydown',function(e){
-      if(e.key==='Enter'){
-        var cmd=inp.value.trim();
-        if(cmd){
-          cmdHistory.push(cmd);
-          historyIdx=cmdHistory.length;
-          executeCliCommand(cmd);
-        }
-        inp.value='';
-      } else if(e.key==='ArrowUp'){
-        e.preventDefault();
-        if(historyIdx>0){historyIdx--;inp.value=cmdHistory[historyIdx]||'';}
-      } else if(e.key==='ArrowDown'){
-        e.preventDefault();
-        if(historyIdx<cmdHistory.length-1){historyIdx++;inp.value=cmdHistory[historyIdx]||'';}
-        else{historyIdx=cmdHistory.length;inp.value='';}
-      }
+function initTerminal(projectId, projectName, modelName){
+  _termCurrentProject=projectId;
+
+  // Load xterm.js from CDN if not already loaded
+  function loadScript(src){
+    return new Promise(function(resolve,reject){
+      if(document.querySelector('script[src="'+src+'"]')){resolve();return;}
+      var s=document.createElement('script');
+      s.src=src;
+      s.onload=resolve;
+      s.onerror=reject;
+      document.head.appendChild(s);
     });
   }
 
-  // Click on terminal to focus input
-  var termBody=document.getElementById('termBody');
-  if(termBody){
-    termBody.addEventListener('click',function(){
-      if(inp)inp.focus();
+  function loadCss(src){
+    if(document.querySelector('link[href="'+src+'"]'))return;
+    var l=document.createElement('link');
+    l.rel='stylesheet';
+    l.href=src;
+    document.head.appendChild(l);
+  }
+
+  loadCss('https://cdn.jsdelivr.net/npm/xterm@5.5.0/xterm.css');
+  loadScript('https://cdn.jsdelivr.net/npm/xterm@5.5.0/lib/xterm.js')
+    .then(function(){return loadScript('https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js')})
+    .then(function(){
+      // Socket.IO client
+      if(!window.io){
+        return loadScript('https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js').then(setupTerminal);
+      }
+      setupTerminal();
+    })
+    .catch(function(e){
+      termWrite('Failed to load terminal libraries: '+e.message+' (check internet)','error');
+    });
+
+  function setupTerminal(){
+    var mount=document.getElementById('xterm-mount');
+    if(!mount)return;
+
+    // Create xterm instance
+    _termInstance=new Terminal({
+      cursorBlink:true,
+      fontSize:14,
+      fontFamily:'JetBrains Mono, Consolas, monospace',
+      theme:{
+        background:'#0a0a0f',
+        foreground:'#c9d1d9',
+        cursor:'#6c5ce7',
+        selection:'rgba(108,92,231,0.3)',
+        black:'#0a0a0f',
+        red:'#ef4444',
+        green:'#00b894',
+        yellow:'#f59e0b',
+        blue:'#38bdf8',
+        magenta:'#a855f7',
+        cyan:'#22d3ee',
+        white:'#e8e8f0',
+      },
+      scrollback:5000,
+      allowProposedApi:true,
+    });
+
+    _termFitAddon=new FitAddon.FitAddon();
+    _termInstance.loadAddon(_termFitAddon);
+    _termInstance.open(mount);
+    _termFitAddon.fit();
+
+    // Welcome message
+    _termInstance.writeln('=== Hermes Dashboard Terminal ===');
+    _termInstance.writeln('Connecting to PowerShell backend...');
+    _termInstance.writeln('');
+
+    // Connect WebSocket
+    var wsUrl='http://127.0.0.1:7879';
+    _termSocket=io(wsUrl,{transports:['websocket','polling']});
+
+    _termSocket.on('connect',function(){
+      updateTermStatus('connected','Connected');
+      _termInstance.writeln('[Connected to terminal server]');
+      _termInstance.writeln('');
+
+      // Join project room and start session
+      _termSocket.emit('join_project',{project_id:projectId});
+      _termSocket.emit('terminal_start',{
+        project_id:projectId,
+        project_name:projectName,
+        model:modelName,
+      });
+
+      // Prompt user to start hermes
+      _termInstance.writeln('Run this to start hermes:');
+      _termInstance.writeln('  hermes chat -m "'+modelName+'" --cli');
+      _termInstance.writeln('');
+    });
+
+    _termSocket.on('disconnect',function(){
+      updateTermStatus('disconnected','Disconnected');
+      _termInstance.writeln('\r\n\n[Disconnected from server]\r\n');
+    });
+
+    _termSocket.on('output',function(msg){
+      if(msg.project_id===projectId&&msg.data){
+        _termInstance.write(msg.data);
+      }
+    });
+
+    _termSocket.on('error',function(msg){
+      if(msg.project_id===projectId&&msg.data){
+        _termInstance.write('\r\n[Error: '+msg.data+']\r\n');
+      }
+    });
+
+    _termSocket.on('session_status',function(status){
+      if(status.running){
+        updateTermStatus('connected','Running (PID '+status.pid+')');
+      } else {
+        updateTermStatus('disconnected','Stopped');
+      }
+    });
+
+    // Forward keyboard input
+    _termInstance.onData(function(data){
+      if(_termSocket&&_termSocket.connected){
+        _termSocket.emit('terminal_input',{
+          project_id:projectId,
+          input:data,
+        });
+      }
+    });
+
+    // Handle resize
+    window.addEventListener('resize',function(){
+      if(_termFitAddon)_termFitAddon.fit();
     });
   }
+}
 
-  function executeCliCommand(cmd){
-    var body=document.getElementById('termBody');
-    var status=document.getElementById('cliStatus');
-    if(!body)return;
-
-    // Echo command
-    var echoLine=document.createElement('div');
-    echoLine.className='term-line';
-    echoLine.innerHTML='<span class="term-prompt">hermes&gt;</span><span style="color:#c9d1d9">'+cmd+'</span>';
-    body.appendChild(echoLine);
-
-    var parts=cmd.toLowerCase().split(/\s+/);
-    var command=parts[0];
-    var args=parts.slice(1).join(' ');
-
-    if(command==='help'){
-      printOutput('Available commands:','info');
-      printOutput('  help          Show this help','info');
-      printOutput('  status        Show dashboard status','info');
-      printOutput('  agents        List all agents','info');
-      printOutput('  projects      List all projects','info');
-      printOutput('  run [task]    Run a task through the dispatcher','info');
-      printOutput('  clear         Clear terminal','info');
-      if(status)status.textContent='Help displayed';
-    }
-    else if(command==='clear'){
-      body.innerHTML='';
-      if(status)status.textContent='Cleared';
-    }
-    else if(command==='status'){
-      var S2=window.S||{};
-      printOutput('Dashboard Status:','info');
-      printOutput('  Projects: '+(S2.projects?S2.projects.length:0),'success');
-      printOutput('  Agents: '+(S2.agentConfigs?S2.agentConfigs.length:0),'success');
-      printOutput('  Workflows: '+(S2.workflows?S2.workflows.length:0),'success');
-      if(status)status.textContent='Status displayed';
-    }
-    else if(command==='agents'){
-      var S2=window.S||{};
-      if(S2.agentConfigs&&S2.agentConfigs.length){
-        S2.agentConfigs.forEach(function(a){
-          printOutput('  '+a.id+' — '+(a.model||'default')+' ['+(a.role||'worker')+']',a.status==='idle'?'success':'warn');
-        });
-      } else {
-        printOutput('  No agents configured.','warn');
-      }
-      if(status)status.textContent='Agents listed';
-    }
-    else if(command==='projects'){
-      var S2=window.S||{};
-      if(S2.projects&&S2.projects.length){
-        S2.projects.forEach(function(p){
-          printOutput('  '+p.id+' — '+p.name+' ('+(p.agents?p.agents.length:0)+' agents)','info');
-        });
-      } else {
-        printOutput('  No projects.','warn');
-      }
-      if(status)status.textContent='Projects listed';
-    }
-    else if(command==='run'){
-      if(!args){printOutput('Usage: run [task description]','error');return;}
-      printOutput('Dispatching task: '+args,'info');
-      printOutput('  → Task queued for dispatcher.','success');
-      if(status)status.textContent='Task dispatched';
-    }
-    else{
-      printOutput('Unknown command: '+command+'. Type "help" for available commands.','error');
-      if(status)status.textContent='Error: unknown command';
-    }
-
-    // Auto-scroll
-    body.scrollTop=body.scrollHeight;
+function updateTermStatus(state,text){
+  var dot=document.getElementById('termStatusDot');
+  var txt=document.getElementById('termStatusText');
+  if(!dot||!txt)return;
+  if(state==='connected'){
+    dot.style.background='#00b894';
+    dot.style.boxShadow='0 0 6px #00b894';
+    txt.textContent=text;
+    txt.style.color='#00b894';
+  } else if(state==='disconnected'){
+    dot.style.background='#ef4444';
+    dot.style.boxShadow='0 0 6px #ef4444';
+    txt.textContent=text;
+    txt.style.color='#ef4444';
+  } else {
+    dot.style.background='var(--text-muted)';
+    dot.style.boxShadow='none';
+    txt.textContent=text;
+    txt.style.color='var(--text-dim)';
   }
+}
 
-  function printOutput(text,type){
-    var body=document.getElementById('termBody');
-    if(!body)return;
-    var line=document.createElement('div');
-    line.className='term-line';
-    var cls='term-output';
-    if(type==='success')cls='term-output term-success';
-    else if(type==='error')cls='term-output term-error';
-    else if(type==='warn')cls='term-output term-warn';
-    else if(type==='info')cls='term-output term-info';
-    line.innerHTML='<span class="'+cls+'">'+text+'</span>';
-    body.appendChild(line);
-    body.scrollTop=body.scrollHeight;
+function termWrite(text,type){
+  if(_termInstance){
+    _termInstance.write(text);
+  }
+}
+
+function termClear(){
+  if(_termInstance){
+    _termInstance.clear();
+  }
+}
+
+function termRestart(){
+  if(_termSocket&&_termSocket.connected&&_termCurrentProject){
+    _termSocket.emit('terminal_restart',{project_id:_termCurrentProject});
   }
 }
 
@@ -1606,80 +1889,385 @@ function renderPlannerPage(c){c.innerHTML='<div class="os-page active"><div clas
 function renderRoutingPage(c){c.innerHTML='<div class="os-page active"><div class="os-page-header"><h1>Agent Routing</h1></div><div class="os-card"><table class="os-table"><tr><th>Condition</th><th>Agent</th></tr><tr><td>Complex reasoning</td><td>Hermes Main</td></tr><tr><td>Bulk text/files</td><td>Flash Agent</td></tr><tr><td>Vision/media</td><td>Video Agent</td></tr></table></div></div>';}
 function renderExceptionsPage(c){c.innerHTML='<div class="os-page active"><div class="os-page-header"><h1>Exceptions</h1></div><div class="os-card" style="border-left:3px solid var(--warn)"><div style="font-weight:700;font-size:12px;margin-bottom:3px">No Active Exceptions</div><div style="font-size:10px;color:var(--text-muted)">All systems running normally.</div></div></div>';}
 function renderShortTermPage(c){
-  var h='<div class="os-page active"><div class="os-page-header"><h1>Short-Term Context</h1></div>';
-  h+='<div class="os-card"><table class="os-table"><tr><th>Key</th><th>Value</th></tr>';
-  h+='<tr><td>current_task</td><td>'+(S.activeTaskId||'-')+'</td></tr>';
-  h+='<tr><td>active_project</td><td>'+(S.curProj||'-')+'</td></tr>';
-  h+='<tr><td>open_projects</td><td>'+(S.openProjs||[]).length+'</td></tr>';
-  h+='<tr><td>workspace</td><td>William\'s Projects</td></tr>';
+  var h='<div class="os-page active"><div class="os-page-header"><h1>Short-Term Context</h1><p>What the selected model sees — system prompt + conversation + memory</p></div>';
+
+  // ── Active project + agent ──
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  var activeAgentId=_activeConsoleAgent||(proj&&proj.agents?proj.agents[0]:null);
+  var ag=activeAgentId?getAgentById(activeAgentId):null;
+
+  h+='<div class="os-card" style="margin-bottom:8px">';
+  h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+  h+='<div style="width:8px;height:8px;border-radius:50%;background:'+(ag?ag.color:'var(--text-muted)')+'"></div>';
+  h+='<span style="font-size:12px;font-weight:700">'+(ag?ag.name:'No agent selected')+'</span>';
+  h+='<span class="os-tag" style="font-size:8px">'+(ag?ag.model:'')+'</span>';
+  h+='<span class="os-tag" style="font-size:8px;background:var(--accent-dim);color:var(--accent)">'+(proj?proj.name:'')+'</span>';
+  h+='</div>';
+  h+='</div>';
+
+  // ── System Prompt ──
+  h+='<div class="os-card" style="margin-bottom:8px">';
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:6px">System Prompt</div>';
+  h+='<div style="font-size:11px;color:var(--text-dim);line-height:1.5;background:var(--bg);padding:8px;border-radius:6px;font-family:monospace;white-space:pre-wrap">'+(ag?ag.systemPrompt||'No system prompt set':'Select an agent to view its system prompt')+'</div>';
+  h+='</div>';
+
+  // ── Conversation History (from CLI session) ──
+  h+='<div class="os-card" style="margin-bottom:8px">';
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:6px">Conversation History</div>';
+  if(activeAgentId){
+    var outEl=document.getElementById('console-output-'+activeAgentId);
+    if(outEl&&outEl.children.length){
+      h+='<div style="max-height:200px;overflow-y:auto">';
+      var msgs=outEl.querySelectorAll('.log-line');
+      msgs.forEach(function(m){
+        var who=m.querySelector('.log-agent');
+        var txt=m.querySelector('.log-msg');
+        var time=m.querySelector('.log-time');
+        if(who&&txt){
+          var roleClass=who.textContent==='YOU'?'color:#fff;font-weight:600':'color:var(--accent)';
+          h+='<div style="display:flex;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)">';
+          h+='<span style="font-size:9px;color:var(--text-muted);flex-shrink:0">'+(time?time.textContent:'')+'</span>';
+          h+='<span style="font-size:10px;'+roleClass+';flex-shrink:0;min-width:60px">'+who.textContent+'</span>';
+          h+='<span style="font-size:10px;color:var(--text-dim);flex:1">'+txt.textContent.substring(0,200)+'</span>';
+          h+='</div>';
+        }
+      });
+      h+='</div>';
+    } else {
+      h+='<div style="font-size:11px;color:var(--text-muted)">No messages yet. Use the CLI to send commands.</div>';
+    }
+  } else {
+    h+='<div style="font-size:11px;color:var(--text-muted)">Open a project and click a Console tab to see conversation.</div>';
+  }
+  h+='</div>';
+
+  // ── Memory Facts (injected into context) ──
+  h+='<div class="os-card" style="margin-bottom:8px">';
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:6px">Memory Facts Injected</div>';
+  h+='<table class="os-table" style="font-size:10px"><tr><th>Fact</th><th>Source</th></tr>';
+  h+='<tr><td>Active project: '+(proj?proj.name:'None')+'</td><td>Dashboard</td></tr>';
+  h+='<tr><td>Active agent: '+(ag?ag.name:'None')+'</td><td>Dashboard</td></tr>';
+  h+='<tr><td>Model: '+(ag?ag.model:'None')+'</td><td>Config</td></tr>';
+  h+='<tr><td>Total projects</td><td>'+(S.projects?S.projects.length:0)+'</td></tr>';
+  h+='<tr><td>Total agents</td><td>'+(S.agentConfigs?S.agentConfigs.length:0)+'</td></tr>';
+  h+='<tr><td>Session status: '+(_consoleStatusCache?_consoleStatusCache.session&&_consoleStatusCache.session.status||'unknown':'no session')+'</td><td>session-status.json</td></tr>';
   h+='</table></div>';
-  // Show recent session info if available
-  h+='<div class="os-card" style="margin-top:8px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:8px">Active Sessions</div>';
-  h+='<div style="font-size:11px;color:var(--text-dim)">Sessions are managed through the Hermes gateway. Use the TUI or web dashboard to interact.</div>';
+
+  // ── Raw API Payload Preview ──
+  h+='<div class="os-card">';
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:6px">API Payload Preview</div>';
+  h+='<div style="font-size:10px;color:var(--text-dim);font-family:monospace;background:var(--bg);padding:8px;border-radius:6px;white-space:pre-wrap;max-height:150px;overflow-y:auto">';
+  if(ag){
+    h+=JSON.stringify([
+      {role:'system',content:ag.systemPrompt},
+      {role:'user',content:'<last user message from conversation>'},
+      {role:'agent',content:'<last agent response>'}
+    ],null,2);
+  } else {
+    h+='Select an agent to preview payload';
+  }
   h+='</div></div>';
+
   c.innerHTML=h;
 }
 function renderLongTermPage(c){
-  var h='<div class="os-page active"><div class="os-page-header"><h1>Long-Term Memory</h1></div>';
-  // Scan project memory from S.projects
-  h+='<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
-  h+='<button class="cbtn" onclick="refreshMemory()" style="font-size:10px">Refresh</button>';
-  h+='<button class="cbtn" onclick="exportMemory()" style="font-size:10px">Export</button>';
+  var h='<div class="os-page active"><div class="os-page-header"><h1>Long-Term Memory</h1><p>Hive Memory vault — persistent facts, conventions, and project memory</p></div>';
+
+  // Load hive-memory-index.json
+  h+='<div id="hiveLoading" style="font-size:11px;color:var(--text-dim);padding:8px">Loading Hive Memory index...</div>';
+  h+='<div id="hiveContent" style="display:none">';
+
+  // Stats bar
+  h+='<div class="os-card" style="margin-bottom:8px">';
+  h+='<div style="display:flex;gap:12px;flex-wrap:wrap" id="hiveStats"></div>';
   h+='</div>';
-  // Show memory facts from all projects
-  h+='<div class="os-card"><table class="os-table"><tr><th>Project</th><th>Memory Facts</th></tr>';
-  if(S.projects && S.projects.length){
-    S.projects.forEach(function(p){
-      var mem = p.memory || p.desc || 'No memory stored';
-      h+='<tr><td style="font-weight:600;white-space:nowrap">'+p.name+'</td><td style="font-size:11px;color:var(--text-dim)">'+mem+'</td></tr>';
-    });
-  } else {
-    h+='<tr><td colspan="2" style="color:var(--text-muted);text-align:center">No projects loaded</td></tr>';
-  }
-  h+='</table></div>';
-  // Global memory facts
-  h+='<div class="os-card" style="margin-top:8px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:8px">Global Memory</div>';
-  h+='<table class="os-table"><tr><th>Fact</th><th>Source</th></tr>';
-  h+='<tr><td>FX chain: parallel sends NOT serial</td><td>Eloquenta</td></tr>';
-  h+='<tr><td>GitHub: no push without explicit request</td><td>Global</td></tr>';
-  h+='<tr><td>Seedream 4.5: $0.04/image for art</td><td>RESONANCE</td></tr>';
-  h+='<tr><td>Gemma 3 27B: free on OpenRouter</td><td>Global</td></tr>';
-  h+='<tr><td>PayFast merchant: WTE payments</td><td>WTE</td></tr>';
-  h+='</table></div></div>';
+
+  // Key Files
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin-bottom:6px">Key Files</div>';
+  h+='<div id="hiveKeyFiles"></div>';
+
+  // Folder Tree
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin:12px 0 6px">Vault Structure</div>';
+  h+='<div id="hiveFolders"></div>';
+
+  // Recent Files
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin:12px 0 6px">Recently Modified</div>';
+  h+='<div id="hiveRecent"></div>';
+
+  h+='</div>';
   c.innerHTML=h;
+
+  // Fetch hive-memory-index.json
+  fetch('hive-memory-index.json?t='+Date.now(),{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+    .then(function(data){
+      document.getElementById('hiveLoading').style.display='none';
+      document.getElementById('hiveContent').style.display='block';
+
+      // Stats
+      var stats=document.getElementById('hiveStats');
+      stats.innerHTML='<div style="font-size:11px;color:var(--text-dim)">Files: <strong style="color:var(--text)">'+data.total_files+'</strong></div>'+
+        '<div style="font-size:11px;color:var(--text-dim)">Size: <strong style="color:var(--text)">'+data.total_size_human+'</strong></div>'+
+        '<div style="font-size:11px;color:var(--text-dim)">Folders: <strong style="color:var(--text)">'+data.folders.length+'</strong></div>'+
+        '<div style="font-size:11px;color:var(--text-dim)">Updated: <strong style="color:var(--text)">'+data.generated.substring(0,19)+'</strong></div>';
+
+      // Key Files
+      var kf=document.getElementById('hiveKeyFiles');
+      var kfHtml='';
+      for(var path in data.key_files){
+        var f=data.key_files[path];
+        kfHtml+='<div class="os-card mem-item" style="margin-bottom:6px" data-mem-search="'+path.toLowerCase()+'">';
+        kfHtml+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+        kfHtml+='<span style="font-weight:700;font-size:11px">'+path+'</span>';
+        kfHtml+='<span class="os-tag" style="font-size:7px">'+f.lines+' lines</span></div>';
+        kfHtml+='<div style="font-size:10px;color:var(--text-dim);font-family:monospace;white-space:pre-wrap;max-height:80px;overflow:hidden">'+escapeHtml(f.preview)+'</div>';
+        kfHtml+='</div>';
+      }
+      kf.innerHTML=kfHtml;
+
+      // Folders
+      var fd=document.getElementById('hiveFolders');
+      var fdHtml='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px">';
+      data.folders.forEach(function(folder){
+        fdHtml+='<div class="os-card" style="padding:8px">';
+        fdHtml+='<div style="font-size:10px;font-weight:700;margin-bottom:4px">'+folder.name+'</div>';
+        fdHtml+='<div style="font-size:9px;color:var(--text-muted)">'+folder.file_count+' files</div>';
+        if(folder.files.slice(0,3).length){
+          fdHtml+='<div style="font-size:9px;color:var(--text-dim);margin-top:4px">';
+          folder.files.slice(0,3).forEach(function(fm){
+            fdHtml+=fm.name+'<br>';
+          });
+          if(folder.files.length>3) fdHtml+='<span style="color:var(--text-muted)">+'+(folder.files.length-3)+' more</span>';
+          fdHtml+='</div>';
+        }
+        fdHtml+='</div>';
+      });
+      fdHtml+='</div>';
+      fd.innerHTML=fdHtml;
+
+      // Recent
+      var rc=document.getElementById('hiveRecent');
+      var rcHtml='';
+      data.recent_files.slice(0,10).forEach(function(f){
+        rcHtml+='<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border)">';
+        rcHtml+='<span style="font-size:9px;color:var(--text-muted);flex-shrink:0">'+f.modified.substring(5,16)+'</span>';
+        rcHtml+='<span style="font-size:10px;font-weight:500;flex:1">'+f.rel_path+'</span>';
+        rcHtml+='<span style="font-size:9px;color:var(--text-muted)">'+(f.size/1024).toFixed(1)+' KB</span>';
+        rcHtml+='</div>';
+      });
+      rc.innerHTML=rcHtml;
+    })
+    .catch(function(e){
+      document.getElementById('hiveLoading').innerHTML='<span style="color:var(--error)">Failed to load: '+e.message+'</span>. Run <code>python generate-hive-index.py</code> to create the index.';
+    });
 }
 function renderKnowledgePage(c){
-  var h='<div class="os-page active"><div class="os-page-header"><h1>Knowledge Graph</h1></div>';
-  h+='<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
-  h+='<input type="text" id="memSearch" placeholder="Search memory... (Ctrl+F)" style="flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:11px;outline:none">';
+  var h='<div class="os-page active"><div class="os-page-header"><h1>Knowledge & Newsfeeds</h1><p>Monitor RSS feeds, blogs, and news sources to improve Hermes setups and multi-agent workflows</p></div>';
+
+  // ── Feed Sources ──
+  var feeds=S.knowledgeFeeds||getDefaultFeeds();
+  h+='<div class="os-card" style="margin-bottom:10px">';
+  h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
+  h+='<div style="font-size:11px;font-weight:600">Feed Sources</div>';
+  h+='<button class="cbtn" onclick="addKnowledgeFeed()" style="font-size:9px;padding:3px 8px">+ Add Feed</button>';
   h+='</div>';
-  // Project knowledge
-  h+='<div id="memSearchResults">';
-  S.projects.forEach(function(p){
-    h+='<div class="os-card mem-item" style="margin-bottom:6px" data-mem-search="'+p.name.toLowerCase()+'">';
-    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
-    h+='<div style="width:8px;height:8px;border-radius:50%;background:'+p.color+'"></div>';
-    h+='<span style="font-weight:600;font-size:12px">'+p.name+'</span>';
-    h+='<span class="os-tag" style="font-size:7px;background:'+p.color+'22;color:'+p.color+'">'+p.status+'</span>';
+
+  // Feed list
+  h+='<div id="feedList">';
+  feeds.forEach(function(feed,i){
+    var statusDot=feed.enabled?'var(--success)':'var(--text-muted)';
+    h+='<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)" data-feed-idx="'+i+'">';
+    h+='<input type="checkbox" '+(feed.enabled?'checked':'')+' onchange="toggleFeed('+i+')" style="accent-color:var(--accent)">';
+    h+='<div style="flex:1">';
+    h+='<div style="font-size:11px;font-weight:500">'+feed.name+'</div>';
+    h+='<div style="font-size:9px;color:var(--text-muted);word-break:break-all">'+feed.url+'</div>';
     h+='</div>';
-    h+='<div style="font-size:11px;color:var(--text-dim)">'+(p.desc||'No description')+'</div>';
-    if(p.url) h+='<div style="font-size:10px;color:var(--cyan);margin-top:4px;word-break:break-all">'+p.url+'</div>';
+    h+='<span style="font-size:9px;color:var(--text-dim)">'+(feed.category||'general')+'</span>';
+    h+='<span style="font-size:9px;color:'+statusDot+'">'+(feed.enabled?'active':'off')+'</span>';
+    h+='<button class="cbtn" style="font-size:8px;padding:1px 5px;color:var(--error)" onclick="removeFeed('+i+')">x</button>';
     h+='</div>';
   });
   h+='</div></div>';
+
+  // ── Feed Settings ──
+  h+='<div class="os-card" style="margin-bottom:10px">';
+  h+='<div style="font-size:11px;font-weight:600;margin-bottom:8px">Monitoring Settings</div>';
+  h+='<div class="setting-row"><label>Check interval</label>';
+  h+='<select id="feedInterval" onchange="saveFeedSettings()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:11px">';
+  h+='<option value="3600">Every hour</option>';
+  h+='<option value="21600" selected>Every 6 hours</option>';
+  h+='<option value="86400">Daily</option>';
+  h+='<option value="604800">Weekly</option>';
+  h+='</select></div>';
+  h+='<div class="setting-row"><label>AI Filter</label>';
+  h+='<select id="feedFilter" onchange="saveFeedSettings()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:4px;font-size:11px">';
+  h+='<option value="all">All articles</option>';
+  h+='<option value="llm" selected>LLM/AI relevant only</option>';
+  h+='<option value="agents">Multi-agent workflows</option>';
+  h+='<option value="hermes">Hermes-specific</option>';
+  h+='</select></div>';
+  h+='<div class="setting-row"><label>Notify via</label>';
+  h+='<div style="display:flex;gap:8px">';
+  h+='<label style="font-size:10px"><input type="checkbox" checked> Dashboard</label>';
+  h+='<label style="font-size:10px"><input type="checkbox"> Telegram</label>';
+  h+='<label style="font-size:10px"><input type="checkbox"> Email</label>';
+  h+='</div></div>';
+  h+='<button class="cbtn" onclick="testFeedConnection()" style="font-size:10px;margin-top:6px">Test Fetch</button>';
+  h+='<span id="feedTestResult" style="font-size:10px;margin-left:8px"></span>';
+  h+='</div>';
+
+  // ── Recommended Feeds ──
+  h+='<div class="os-card" style="margin-bottom:10px">';
+  h+='<div style="font-size:11px;font-weight:600;margin-bottom:8px">Recommended Sources</div>';
+  var rec=[
+    {name:'Anthropic Research',url:'https://www.anthropic.com/research',cat:'AI Research'},
+    {name:'OpenAI Blog',url:'https://openai.com/blog',cat:'LLM Updates'},
+    {name:'Hugging Face Daily Papers',url:'https://huggingface.co/papers',cat:'ML Research'},
+    {name:'LangChain Blog',url:'https://blog.langchain.dev',cat:'Agent Frameworks'},
+    {name:'r/LocalLLaMA',url:'https://reddit.com/r/LocalLLaMA/.rss',cat:'LLM News'},
+    {name:'r/MachineLearning',url:'https://reddit.com/r/MachineLearning/.rss',cat:'ML News'},
+    {name:"Simon Willison's Weblog",url:'https://simonwillison.net/atom/everything/',cat:'AI & Dev'},
+    {name:'LMSYS Blog',url:'https://blog.lmarena.ai/',cat:'LLM Benchmarks'},
+    {name:'Ollama Blog',url:'https://ollama.com/blog',cat:'Local Models'},
+    {name:'OpenRouter Changelog',url:'https://openrouter.ai/changelog',cat:'API Providers'},
+  ];
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px">';
+  rec.forEach(function(r){
+    var added=feeds.some(function(f){return f.url===r.url;});
+    h+='<div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px">';
+    h+='<div style="font-size:10px;font-weight:600;margin-bottom:2px">'+r.name+'</div>';
+    h+='<div style="font-size:8px;color:var(--text-muted);margin-bottom:4px">'+r.cat+'</div>';
+    if(added){
+      h+='<span style="font-size:8px;color:var(--success)">Added</span>';
+    } else {
+      h+='<button class="cbtn" style="font-size:8px;padding:2px 6px" onclick="addRecommendedFeed(\''+r.name+'|'+r.url+'|'+r.cat+'\')">+ Add</button>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+
   c.innerHTML=h;
-  // Add search listener
-  var searchInput=document.getElementById('memSearch');
-  if(searchInput){
-    searchInput.addEventListener('input',function(){
-      var q=this.value.toLowerCase();
-      document.querySelectorAll('.mem-item').forEach(function(el){
-        var text=el.dataset.memSearch||'';
-        el.style.display=text.indexOf(q)>=0?'block':'none';
-      });
+}
+
+function getDefaultFeeds(){
+  return [
+    {name:'Anthropic Research',url:'https://www.anthropic.com/research',enabled:true,category:'AI'},
+    {name:'Hugging Face Papers',url:'https://huggingface.co/papers',enabled:true,category:'Research'},
+    {name:'LangChain Blog',url:'https://blog.langchain.dev',enabled:true,category:'Agents'},
+    {name:'OpenRouter Changelog',url:'https://openrouter.ai/changelog',enabled:true,category:'API'},
+    {name:'r/LocalLLaMA',url:'https://reddit.com/r/LocalLLaMA/.rss',enabled:false,category:'LLM'},
+  ];
+}
+
+// ═══ PLANS PAGE ═══
+window.renderPlansPage=function(c){
+  var h='<div class="os-page active"><div class="os-page-header"><h1>Plans</h1><p>Implementation plans for active workflows</p></div>';
+
+  // Load plans from Hive Memory templates + dashboard plans
+  var plans=S.plans||[];
+
+  // Add plan button
+  h+='<div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">';
+  h+='<button class="cbtn" onclick="createNewPlan()" style="font-size:10px">+ New Plan</button>';
+  h+='<button class="cbtn" onclick="refreshPlans()" style="font-size:10px">Refresh</button>';
+  h+='</div>';
+
+  // Plans list
+  if(!plans.length){
+    h+='<div class="os-card"><div style="font-size:11px;color:var(--text-muted);text-align:center;padding:12px">No plans yet. Click "+ New Plan" to create one.</div></div>';
+  } else {
+    plans.forEach(function(plan){
+      h+='<div class="os-card" style="margin-bottom:8px">';
+      h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+      h+='<div style="width:8px;height:8px;border-radius:50%;background:'+(plan.color||'var(--accent)')+'"></div>';
+      h+='<span style="font-size:12px;font-weight:700;flex:1">'+(plan.title||'Untitled')+'</span>';
+      h+='<span class="os-tag" style="font-size:7px">'+(plan.status||'draft')+'</span>';
+      h+='<span style="font-size:9px;color:var(--text-muted)">'+(plan.created||'')+'</span>';
+      h+='</div>';
+      if(plan.desc)h+='<div style="font-size:10px;color:var(--text-dim);line-height:1.4">'+(plan.desc||'')+'</div>';
+      if(plan.steps&&plan.steps.length){
+        h+='<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border)';
+        plan.steps.forEach(function(step,i){
+          h+='<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:10px">';
+          h+='<span style="color:'+(step.done?'var(--success)':'var(--text-muted)')+'">'+(step.done?'+':'o')+'</span>';
+          h+='<span style="flex:1">'+(step.title||'')+'</span>';
+          h+='</div>';
+        });
+        h+='</div>';
+      }
+      h+='</div>';
     });
   }
-}
+
+  // Hive Memory plan templates
+  h+='<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted);margin:12px 0 6px">Plan Templates (Hive Memory)</div>';
+  h+='<div class="os-card"><div style="font-size:10px;color:var(--text-dim)">plan.md template available at Hive Memory/Templates/plan.md</div></div>';
+
+  c.innerHTML=h;
+};
+
+window.createNewPlan=function(){
+  showModal('New Plan','Plan title?',function(title){
+    if(!title)return;
+    if(!S.plans)S.plans=[];
+    S.plans.push({title:title,desc:'',status:'draft',created:new Date().toISOString().substring(0,10),steps:[],color:'var(--accent)'});
+    localStorage.setItem('hd_plans',JSON.stringify(S.plans));
+    renderOSPage('plans');
+  });
+};
+
+window.refreshPlans=function(){
+  try{var p=JSON.parse(localStorage.getItem('hd_plans'));if(p)S.plans=p;}catch(e){}
+  renderOSPage('plans');
+};
+
+// ═══ FEED MANAGEMENT ═══
+window.addKnowledgeFeed=function(){
+  showModal('Add Feed','Feed name | URL | category',function(input){
+    if(!input)return;
+    var parts=input.split('|').map(function(s){return s.trim();});
+    if(parts.length<2)return;
+    if(!S.knowledgeFeeds)S.knowledgeFeeds=getDefaultFeeds();
+    S.knowledgeFeeds.push({name:parts[0],url:parts[1],enabled:true,category:parts[2]||'general'});
+    localStorage.setItem('hd_feeds',JSON.stringify(S.knowledgeFeeds));
+    renderOSPage('knowledge');
+  });
+};
+
+window.addRecommendedFeed=function(encoded){
+  var parts=encoded.split('|');
+  if(!S.knowledgeFeeds)S.knowledgeFeeds=getDefaultFeeds();
+  S.knowledgeFeeds.push({name:parts[0],url:parts[1],enabled:true,category:parts[2]||'general'});
+  localStorage.setItem('hd_feeds',JSON.stringify(S.knowledgeFeeds));
+  renderOSPage('knowledge');
+  toast('Feed added','ok');
+};
+
+window.toggleFeed=function(idx){
+  if(!S.knowledgeFeeds||!S.knowledgeFeeds[idx])return;
+  S.knowledgeFeeds[idx].enabled=!S.knowledgeFeeds[idx].enabled;
+  localStorage.setItem('hd_feeds',JSON.stringify(S.knowledgeFeeds));
+};
+
+window.removeFeed=function(idx){
+  if(!S.knowledgeFeeds)return;
+  S.knowledgeFeeds.splice(idx,1);
+  localStorage.setItem('hd_feeds',JSON.stringify(S.knowledgeFeeds));
+  renderOSPage('knowledge');
+};
+
+window.saveFeedSettings=function(){
+  toast('Feed settings saved','ok');
+};
+
+window.testFeedConnection=function(){
+  var el=document.getElementById('feedTestResult');
+  el.textContent='Testing...';el.style.color='var(--warn)';
+  setTimeout(function(){
+    el.style.color='var(--success)';
+    el.textContent='Connection simulated (requires backend)';
+  },800);
+};
 function renderModelsPage(c){
   var h='<div class="os-page active"><div class="os-page-header"><h1>Models & Routing</h1></div>';
   // Current active model
@@ -2032,6 +2620,1002 @@ function performGlobalSearch(){
 var style=document.createElement('style');
 style.textContent='@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}';
 document.head.appendChild(style);
+
+// ═══ CONSOLE TABS ═══
+var _consolePollTimer = null;
+var _consoleStatusCache = null;
+var _activeConsoleAgent = null;
+
+// Build console tabs for current project agents
+function buildConsoleTabs(proj){
+  var tabs=$('ws-tabs');
+  // Remove old console tabs
+  tabs.querySelectorAll('.console-tab').forEach(function(t){t.remove();});
+  // Remove old console panels
+  $$('.console-panel').forEach(function(p){p.remove();});
+
+  if(!proj||!proj.agents)return;
+
+  // Only show console tabs for agents (no orchestrator duplicate)
+  (proj.agents||[]).forEach(function(aid){
+    var ag=getAgentById(aid);if(!ag)return;
+    // Console tab (small, agent-colored)
+    var tab=document.createElement('div');
+    tab.className='console-tab';
+    tab.setAttribute('data-console-agent',aid);
+    tab.setAttribute('data-tab','console-'+aid);
+    tab.innerHTML='<span class="ct-dot" style="background:'+ag.color+'" id="ct-dot-'+aid+'"></span>'+
+      '<span class="ct-name">'+ag.name+'</span>';
+    tab.onclick=function(e){
+      switchWsTab('console-'+aid);
+    };
+    tabs.appendChild(tab);
+    // Console panel (read-only output for this agent)
+    var panel=document.createElement('div');
+    panel.className='console-panel';
+    panel.id='console-panel-'+aid;
+    panel.innerHTML=
+      '<div class="console-output" id="console-output-'+aid+'">'+
+        '<div class="log-line log-info"><span class="log-time">--:--:--</span><span class="log-agent">'+ag.name+'</span><span class="log-msg">Agent ready. Use the CLI below to send commands.</span></div>'+
+      '</div>'+
+      '<div class="console-status-bar">'+
+        '<span class="cs-dot offline" id="cs-dot-'+aid+'"></span>'+
+        '<span id="cs-status-'+aid+'">Idle</span>'+
+        '<span style="margin-left:auto" id="cs-model-'+aid+'">'+ag.model+'</span>'+
+        '<span id="cs-phase-'+aid+'">—</span>'+
+        '<button class="cs-btn" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:8px" onclick="openHermesConfig(\''+aid+'\')">Config</button>'+
+        '<button class="cs-btn" style="background:var(--accent);color:#fff;border:none;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;margin-left:4px" onclick="launchHermesPs(\''+aid+'\')">Launch</button>'+
+      '</div>';
+    $('ws-content').appendChild(panel);
+  });
+}
+
+function switchConsoleTab(agentId){
+  _activeConsoleAgent=agentId;
+  // Update tabs
+  $$('.console-tab').forEach(function(t){t.classList.remove('active');});
+  var tab=$('.console-tab[data-console-agent="'+agentId+'"]');
+  if(tab)tab.classList.add('active');
+  // Update panels
+  $$('.console-panel').forEach(function(p){p.classList.remove('active');});
+  var panel=$('console-panel-'+agentId);
+  if(panel)panel.classList.add('active');
+  // Show CLI input, hide viewer
+  $('html-viewer-panel').classList.remove('active');
+  $('ws-console-input').style.display='block';
+  // Update project label
+  var projLabel=document.getElementById('cli-project-label');
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  if(projLabel&&proj)projLabel.textContent=proj.name+' — sending to '+(proj.agents?proj.agents.length:0)+' agents';
+  // Focus input
+  setTimeout(function(){var inp=$('cliInput');if(inp)inp.focus();},100);
+  // Start polling if not already
+  if(!_consolePollTimer) startConsolePoll();
+}
+
+function closeConsoleTab(e,agentId){
+  e.stopPropagation();
+  var tab=$('.console-tab[data-console-agent="'+agentId+'"]');if(tab)tab.remove();
+  var panel=$('console-panel-'+agentId);if(panel)panel.remove();
+  if(S.wsTab==='console-'+agentId)switchWsTab('viewer');
+}
+
+// Poll session-status.json
+function startConsolePoll(){
+  if(_consolePollTimer)clearInterval(_consolePollTimer);
+  pollConsoleStatus(); // immediate first poll
+  _consolePollTimer=setInterval(pollConsoleStatus,3000);
+}
+
+async function pollConsoleStatus(){
+  var baseUrl='session-status.json';
+  try{
+    var res=await fetch(baseUrl+'?t='+Date.now(),{cache:'no-store'});
+    if(!res.ok)return;
+    var data=await res.json();
+    _consoleStatusCache=data;
+    updateConsoleUI(data);
+  }catch(e){
+    // No status file yet — show placeholder
+  }
+}
+
+function updateConsoleUI(data){
+  var agents=data.agents||{};
+  for(var aid in agents){
+    var info=agents[aid];
+    var status=info.status||'offline';
+    var task=info.current_task||'';
+    var phase=info.phase||'';
+    var pid=info.pid;
+    // Status dot color
+    var dot=document.getElementById('cs-dot-'+aid);
+    var tabDot=document.getElementById('ct-dot-'+aid);
+    var isLive=(status==='running');
+    if(dot){
+      dot.className='cs-dot '+(isLive?'live':'offline');
+    }
+    if(tabDot){
+      tabDot.style.background=isLive?info.project&&info.project.color?info.project.color:'var(--success)':'var(--text-muted)';
+      tabDot.style.boxShadow=isLive?'0 0 4px var(--success)':'none';
+    }
+    var statusEl=document.getElementById('cs-status-'+aid);
+    if(statusEl)statusEl.textContent=status+(pid?' (PID '+pid+')':'');
+    var phaseEl=document.getElementById('cs-phase-'+aid);
+    if(phaseEl)phaseEl.textContent=phase+(task?' — '+task.substring(0,60):'');
+  }
+  // Log entries
+  if(data.log&&data.log.length){
+    data.log.slice(-100).forEach(function(entry){
+      var out=document.getElementById('console-output-'+entry.agentId);
+      if(!out)return;
+      // Only append if not already rendered
+      var id='log-'+entry.time+'-'+entry.msg.substring(0,20).replace(/\s/g,'_');
+      if(document.getElementById(id))return;
+      var line=document.createElement('div');
+      line.className='log-line '+(entry.type||'info');
+      line.id=id;
+      var t=new Date(entry.time);
+      var ts=String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0');
+      line.innerHTML='<span class="log-time">'+ts+'</span><span class="log-agent" style="color:'+(entry.agentColor||'var(--text-dim)')+'">'+(entry.agentName||entry.agentId)+'</span><span class="log-msg">'+escapeHtml(entry.msg)+'</span>';
+      out.appendChild(line);
+      out.scrollTop=out.scrollHeight;
+    });
+  }
+}
+
+// Send message from CLI input — dispatches to ALL agents in active project
+window.sendConsoleMessage=function(){
+  var inp=$('cliInput');if(!inp)return;
+  var text=inp.value.trim();if(!text)return;
+  inp.value='';
+
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  if(!proj||!proj.agents)return;
+
+  // Show command in each agent's output
+  proj.agents.forEach(function(aid){
+    var ag=getAgentById(aid);if(!ag)return;
+    var out=$('console-output-'+aid);if(!out)return;
+    var line=document.createElement('div');
+    line.className='log-line log-warn';
+    var t=new Date();
+    var ts=String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0');
+    line.innerHTML='<span class="log-time">'+ts+'</span><span class="log-agent" style="color:#fff">YOU</span><span class="log-msg">'+escapeHtml(text)+'</span>';
+    out.appendChild(line);
+    out.scrollTop=out.scrollHeight;
+
+    // Update status to "working"
+    var statusEl=document.getElementById('cs-status-'+aid);
+    if(statusEl)statusEl.textContent='Working...';
+    var phaseEl=document.getElementById('cs-phase-'+aid);
+    if(phaseEl)phaseEl.textContent='processing';
+    var dot=document.getElementById('cs-dot-'+aid);
+    if(dot)dot.className='cs-dot live';
+  });
+
+  // Send to each agent via hermes API
+  proj.agents.forEach(function(aid){
+    var ag=getAgentById(aid);if(!ag)return;
+    var out=$('console-output-'+aid);
+    var apiMessages=[{role:'system',content:ag.systemPrompt}];
+    // Include recent context from this agent's output
+    var history=[];
+    if(out){
+      out.querySelectorAll('.log-line').forEach(function(l){
+        var agentEl=l.querySelector('.log-agent');
+        var msgEl=l.querySelector('.log-msg');
+        if(agentEl&&msgEl){
+          var who=agentEl.textContent;
+          var what=msgEl.textContent;
+          if(who==='YOU'){
+            history.push({role:'user',content:what});
+          }else{
+            history.push({role:'agent',content:what});
+          }
+        }
+      });
+    }
+    // Keep last 20 messages for context
+    apiMessages=apiMessages.concat(history.slice(-20));
+    // Add current command
+    apiMessages.push({role:'user',content:text});
+
+    callHermes(apiMessages,ag,function(ok,content,err){
+      if(!out)return;
+      var line=document.createElement('div');
+      line.className='log-line '+(ok?'log-ok':'log-err');
+      var t2=new Date();
+      var ts2=String(t2.getHours()).padStart(2,'0')+':'+String(t2.getMinutes()).padStart(2,'0')+':'+String(t2.getSeconds()).padStart(2,'0');
+      line.innerHTML='<span class="log-time">'+ts2+'</span><span class="log-agent" style="color:'+ag.color+'">'+ag.name+'</span><span class="log-msg">'+escapeHtml(ok?content:(err||'No response'))+'</span>';
+      out.appendChild(line);
+      out.scrollTop=out.scrollHeight;
+
+      // Update status back to idle
+      var sEl=document.getElementById('cs-status-'+aid);
+      if(sEl)sEl.textContent='Idle';
+      var pEl=document.getElementById('cs-phase-'+aid);
+      if(pEl)pEl.textContent='done';
+    });
+  });
+};
+
+// Override switchWsTab to handle console tabs
+var _origSwitchWsTab=switchWsTab;
+window.switchWsTab=function(tabId){
+  if(tabId.indexOf('console-')===0){
+    var agentId=tabId.replace('console-','');
+    switchConsoleTab(agentId);
+    return;
+  }
+  // Show viewer, hide console input
+  $('ws-console-input').style.display='none';
+  _origSwitchWsTab(tabId);
+};
+
+// Build console tabs when project opens
+var _origOpenProject=openProject;
+window.openProject=function(id){
+  _origOpenProject.apply(this,arguments);
+  var proj=S.projects.find(function(p){return p.id===id;});
+  if(proj){
+    setTimeout(function(){
+      buildConsoleTabs(proj);
+      buildPsTabs(proj);
+      // Load viewer
+      var viewer=document.getElementById('html-viewer-frame');
+      var empty=document.getElementById('html-viewer-empty');
+      var urlInput=document.getElementById('html-viewer-url');
+      if(proj.url&&viewer){viewer.src=proj.url;viewer.style.display='block';if(empty)empty.style.display='none';}
+      if(urlInput)urlInput.value=proj.url||'';
+    },200);
+  }
+};
+
+
+
+window.buildConsoleTabs=buildConsoleTabs;
+window._activeConsoleAgent=_activeConsoleAgent;
+
+// ═══ 3-PANEL VIEWPORT ═══
+
+// --- PowerShell Agent Tabs ---
+window.buildPsTabs=function(proj){
+  var container=document.getElementById('ps-tabs');
+  if(!container)return;
+  container.innerHTML='';
+  if(!proj||!proj.agents)return;
+  proj.agents.forEach(function(aid){
+    var ag=getAgentById(aid);if(!ag)return;
+    var tab=document.createElement('button');
+    tab.className='session-tab';
+    tab.setAttribute('data-agent',aid);
+    tab.type='button';
+    tab.innerHTML='<span class="tab-dot" style="background:'+ag.color+'"></span><span>'+ag.name+'</span>';
+    tab.onclick=function(){switchPsAgent(proj.id,aid);};
+    container.appendChild(tab);
+  });
+  // Activate first agent
+  if(proj.agents[0]) switchPsAgent(proj.id,proj.agents[0]);
+};
+
+window.updateTabs=function(){};
+
+window.switchPsAgent=function(projectId,agentId){
+  var tabs=document.getElementById('ps-tabs');
+  if(!tabs)return;
+  var activeTab=tabs.querySelector('[data-agent="'+agentId+'"]');
+  // Sliding underline animation (Hermes IDE pattern)
+  if(activeTab){
+    var tabsRect=tabs.getBoundingClientRect();
+    var r=activeTab.getBoundingClientRect();
+    tabs.style.setProperty('--tab-x',(r.left-tabsRect.left)+'px');
+    tabs.style.setProperty('--tab-w',r.width+'px');
+  }
+  // Update active class
+  tabs.querySelectorAll('.session-tab').forEach(function(t){
+    t.classList.toggle('session-tab-active',t.getAttribute('data-agent')===agentId);
+  });
+
+  // Show PowerShell output for this agent
+  var output=document.getElementById('ps-output');
+  if(!output)return;
+  var ag=getAgentById(agentId);
+  if(!ag)return;
+
+  var historyKey='ps_'+projectId+'_'+agentId;
+  var history=window._psHistories&&window._psHistories[historyKey]||'';
+  output.innerHTML='<span style="color:'+ag.color+'">'+ag.name+' ('+ag.model+')</span>\n'+
+    '<span style="color:var(--text-muted)">PowerShell ready. Agent session active.</span>\n'+
+    '<span style="color:var(--text-muted)">Model: '+ag.model+'</span>\n'+
+    '<span style="color:var(--text-muted)">Role: '+ag.role+'</span>\n\n'+
+    history;
+
+  _activePsAgent=agentId;
+};
+
+window.appendPsOutput=function(projectId,agentId,text){
+  var historyKey='ps_'+projectId+'_'+agentId;
+  if(!window._psHistories)window._psHistories={};
+  window._psHistories[historyKey]=(window._psHistories[historyKey]||'')+text;
+  if(_activePsAgent===agentId){
+    var output=document.getElementById('ps-output');
+    if(output){
+      var span=document.createElement('span');
+      span.textContent=text;
+      output.appendChild(span);
+      output.scrollTop=output.scrollHeight;
+    }
+  }
+};
+
+// --- HTML Editor ---
+var _editorState={filename:'',filepath:''};
+
+window.editorOpen=function(){
+  var input=document.createElement('input');
+  input.type='file';
+  input.accept='.html,.htm,.css,.js,.md,.txt,.json';
+  input.onchange=function(e){
+    var file=e.target.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      var editor=document.getElementById('html-editor');
+      if(editor)editor.value=ev.target.result;
+      _editorState.filename=file.name;
+      _editorState.path=file.path||'';
+      var el=document.getElementById('editor-filename');
+      if(el)el.textContent=file.name;
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+};
+
+window.editorSave=function(){
+  var editor=document.getElementById('html-editor');
+  if(!editor||!editor.value)return;
+  var blob=new Blob([editor.value],{type:'text/html'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=_editorState.filename||'index.html';
+  a.click();
+  if(editor)editor.style.borderColor='var(--success)';
+  setTimeout(function(){if(editor)editor.style.borderColor='transparent'},1000);
+};
+
+window.editorSaveAs=function(){
+  var name=prompt('Save as:',_editorState.filename||'index.html');
+  if(!name)return;
+  _editorState.filename=name;
+  var el=document.getElementById('editor-filename');
+  if(el)el.textContent=name;
+  editorSave();
+};
+
+// --- Assign HTML ---
+window.assignProjectHtml=function(){
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  if(!proj)return;
+  var input=document.createElement('input');
+  input.type='file';
+  input.accept='.html,.htm';
+  input.onchange=function(e){
+    var file=e.target.files[0];if(!file)return;
+    var url=URL.createObjectURL(file);
+    var viewer=document.getElementById('html-viewer-frame');
+    var empty=document.getElementById('html-viewer-empty');
+    var urlInput=document.getElementById('html-viewer-url');
+    if(viewer){viewer.src=url;viewer.style.display='block';}
+    if(empty)empty.style.display='none';
+    if(urlInput)urlInput.value=file.name;
+
+    // Save project URL
+    proj.url=file.name;
+    localStorage.setItem('hd_projects2',JSON.stringify(S.projects));
+  };
+  input.click();
+};
+
+// --- Plan File Viewer ---
+window.updatePlanFile=function(){
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  if(!proj)return;
+  // Check selected plan from right pane
+  var selectedPlan=S.selectedPlan||null;
+  if(!selectedPlan){
+    // Show plan selector
+    showPlanSelector();
+    return;
+  }
+  // Load plan.md content and show in editor
+  loadPlanFile(selectedPlan);
+};
+
+window.showPlanSelector=function(){
+  var plans=S.plans||[];
+  if(!plans.length){
+    toast('No plans. Create one in the Plans page.','info');
+    return;
+  }
+  var html='<div style="padding:16px">';
+  html+='<div style="font-size:12px;font-weight:600;margin-bottom:10px">Select a plan to view</div>';
+  plans.forEach(function(p){
+    html+='<div onclick="selectPlanForView(\''+p.id+'\')" style="padding:8px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;margin-bottom:6px;cursor:pointer">'+p.title+'</div>';
+  });
+  html+='</div>';
+  // Simple modal
+  var modal=document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center';
+  modal.innerHTML='<div style="background:var(--bg-panel);border-radius:12px;width:360px;max-height:60vh;overflow-y:auto">'+html+'</div>';
+  modal.onclick=function(e){if(e.target===modal)modal.remove();};
+  document.body.appendChild(modal);
+};
+
+window.selectPlanForView=function(planId){
+  S.selectedPlan=planId;
+  // Close any modal
+  document.querySelectorAll('div[style*="z-index:9999"]').forEach(function(m){m.remove();});
+  loadPlanFile(planId);
+};
+
+window.loadPlanFile=function(planId){
+  var plans=S.plans||[];
+  var plan=plans.find(function(p){return p.id===planId;});
+  var editor=document.getElementById('html-editor');
+  var filename=document.getElementById('editor-filename');
+  if(!plan||!editor)return;
+  var content='# '+plan.title+'\n\n'+(plan.description||'')+'\n\n'+
+    '## Steps\n'+(plan.steps&&plan.steps.length?plan.steps.map(function(s,i){
+      return (s.done?'- [x] ':'- [] ')+(s.title||'Step '+(i+1));
+    }).join('\n'):'(none)');
+  editor.value=content;
+  if(filename)filename.textContent='plan_'+planId+'.md';
+  _editorState.filename='plan_'+planId+'.md';
+};
+
+
+window._activeConsoleAgent=_activeConsoleAgent;
+
+// ═══ SETUP WIZARD ═══
+var _setupStep=0;
+var _setupConfig={model:'',apiKey:'',apiUrl:'',projectName:'',projectDesc:''};
+
+window.renderSetupWizard=function(c){
+  _setupStep=0;
+  _setupConfig={model:'',apiKey:'',apiUrl:'',projectName:'',projectDesc:''};
+  _renderSetupStep(c);
+};
+
+function _renderSetupStep(c){
+  var h='<div class="os-page active"><div style="max-width:600px;margin:0 auto;padding:20px">';
+  var steps=['Welcome','Provider','API Key','Test','Project','Done'];
+  h+='<div style="display:flex;gap:4px;margin-bottom:24px">';
+  steps.forEach(function(s,i){
+    var active=i===_setupStep;
+    var done=i<_setupStep;
+    h+='<div style="flex:1;text-align:center">';
+    h+='<div style="width:24px;height:24px;border-radius:50%;margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:'+(done?'#00b894':active?'var(--accent)':'var(--bg-card)')+';color:'+(done||active?'#fff':'var(--text-muted)')+';border:2px solid '+(done?'#00b894':active?'var(--accent)':'var(--border)')+'">'+(done?'+':(i+1))+'</div>';
+    h+='<div style="font-size:9px;color:'+(active?'var(--text)':'var(--text-muted)')+'">'+s+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  if(_setupStep===0)h+=_stepWelcome();
+  else if(_setupStep===1)h+=_stepProvider();
+  else if(_setupStep===2)h+=_stepApiKey();
+  else if(_setupStep===3)h+=_stepTest();
+  else if(_setupStep===4)h+=_stepProject();
+  else if(_setupStep===5)h+=_stepDone();
+  c.innerHTML=h;
+}
+
+function _stepWelcome(){var h='';
+  h+='<div style="text-align:center;padding:20px 0">';
+  h+='<div style="font-size:32px;margin-bottom:12px">HERMES</div>';
+  h+='<h1 style="font-size:22px;font-weight:700;margin-bottom:8px">Welcome to Hermes Dashboard</h1>';
+  h+='<p style="font-size:13px;color:var(--text-dim);line-height:1.6;margin-bottom:20px">Your AI agent orchestration platform. Get started in 3 minutes.</p>';
+  h+='<div style="text-align:left;background:var(--bg);border-radius:10px;padding:16px;margin-bottom:20px">';
+  h+='<div style="font-size:11px;font-weight:600;margin-bottom:8px">What this wizard does:</div>';
+  h+='<div style="font-size:11px;color:var(--text-dim);line-height:1.8">';
+  h+='<div>1. Choose your AI provider (free options available)</div>';
+  h+='<div>2. Enter your API key (or use local models)</div>';
+  h+='<div>3. Test the connection works</div>';
+  h+='<div>4. Create your first project</div>';
+  h+='</div></div>';
+  h+='<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:20px;text-align:left">';
+  h+='<div style="font-size:10px;font-weight:600;color:var(--accent);margin-bottom:4px">Mission</div>';
+  h+='<div style="font-size:11px;color:var(--text-dim);line-height:1.5">Make modern AI-powered development accessible to everyone. Local-first, free-tier default, smart model routing that only spends when necessary.</div>';
+  h+='</div>';
+  h+='<button onclick="setupNext()" style="background:var(--accent);color:#fff;border:none;padding:10px 32px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Get Started</button>';
+  h+='</div>';
+  return h;
+}
+
+function _stepProvider(){var h='';
+  h+='<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">Choose Your AI Provider</h2>';
+  h+='<p style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Start free. Upgrade only when you need more power.</p>';
+  var providers=[
+    {id:'ollama',name:'Ollama (Local)',desc:'100% free. Runs on your PC. No API key needed.',cost:'FREE',color:'#00b894',best:true},
+    {id:'openrouter_free',name:'OpenRouter Free Models',desc:'Free tier models from multiple providers. Key required.',cost:'FREE',color:'#00b894',best:false},
+    {id:'openrouter',name:'OpenRouter (Paid)',desc:'Access to all models. Pay per token. ~$5 free credit for new users.',cost:'PAY-PER-USE',color:'#f59e0b',best:false},
+    {id:'google',name:'Google AI Studio',desc:'Gemini models. Generous free tier (15 req/min).',cost:'FREE TIER',color:'#38bdf8',best:false},
+    {id:'deepseek',name:'DeepSeek',desc:'Excellent coding model. Very low cost.',cost:'LOW COST',color:'#a855f7',best:false},
+  ];
+  h+='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">';
+  providers.forEach(function(p){
+    var selected=_setupConfig.model.indexOf(p.id)>=0;
+    h+='<div onclick="selectProvider(\''+p.id+'\')" style="background:var(--bg-card);border:2px solid '+(selected?'var(--accent)':'var(--border)')+';border-radius:10px;padding:14px;cursor:pointer;transition:all .15s">';
+    h+='<div style="display:flex;align-items:center;gap:10px">';
+    h+='<div style="width:10px;height:10px;border-radius:50%;background:'+p.color+';flex-shrink:0"></div>';
+    h+='<div style="flex:1">';
+    h+='<div style="display:flex;align-items:center;gap:6px">';
+    h+='<span style="font-size:13px;font-weight:600">'+p.name+'</span>';
+    if(p.best) h+='<span style="font-size:8px;padding:1px 6px;border-radius:4px;background:var(--accent-dim);color:var(--accent)">RECOMMENDED</span>';
+    h+='</div>';
+    h+='<div style="font-size:11px;color:var(--text-dim);margin-top:2px">'+p.desc+'</div>';
+    h+='</div>';
+    h+='<span style="font-size:9px;font-weight:600;color:'+p.color+'">'+p.cost+'</span>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  h+='<div style="display:flex;gap:8px;justify-content:flex-end">';
+  h+='<button onclick="setupBack()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px">Back</button>';
+  h+='<button onclick="setupNext()" style="background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">Continue</button>';
+  h+='</div>';
+  return h;
+}
+
+function _stepApiKey(){var h='';
+  var provider=_setupConfig.model;
+  var needsKey=provider!=='ollama';
+  var keyPrefix=provider==='google'?'AIza...':provider==='deepseek'?'sk-...':'sk-or-...';
+  var keyUrl=provider==='google'?'https://aistudio.google.com/apikey':provider==='deepseek'?'https://platform.deepseek.com/api_keys':'https://openrouter.ai/keys';
+  h+='<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">'+(needsKey?'Enter API Key':'Local Setup')+'</h2>';
+  if(provider==='ollama'){
+    h+='<p style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Ollama runs locally on your PC. No API key needed.</p>';
+    h+='<div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:16px;font-size:11px;color:var(--text-dim)">';
+    h+='<div style="font-weight:600;margin-bottom:4px">To install Ollama:</div>';
+    h+='<div>1. Download from <a href="https://ollama.com" target="_blank" style="color:var(--accent)">ollama.com</a></div>';
+    h+='<div>2. Run: <code style="background:var(--bg-card);padding:2px 6px;border-radius:4px">ollama pull llama3.2</code></div>';
+    h+='</div>';
+    _setupConfig.model='ollama/llama3.2';
+    _setupConfig.apiUrl='http://127.0.0.1:11434';
+  } else {
+    h+='<p style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Your key stays in your browser. Never sent anywhere except the provider.</p>';
+    h+='<div style="margin-bottom:12px">';
+    h+='<label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:4px">API Key</label>';
+    h+='<div style="display:flex;gap:6px">';
+    h+='<input id="wizardApiKey" value="" type="password" placeholder="'+keyPrefix+'" style="flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;outline:none">';
+    h+='<button onclick="document.getElementById(\'wizardApiKey\').type=document.getElementById(\'wizardApiKey\').type===\'password\'?\'text\':\'password\'" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:11px">Show</button>';
+    h+='</div></div>';
+    h+='<div style="margin-bottom:12px">';
+    h+='<label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:4px">API URL</label>';
+    h+='<input id="wizardApiUrl" value="'+(_setupConfig.apiUrl||'https://openrouter.ai/api/v1')+'" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;outline:none"></div>';
+    h+='<div style="background:var(--bg);border-radius:8px;padding:10px;margin-bottom:16px;font-size:10px;color:var(--text-dim)">';
+    h+='<a href="'+keyUrl+'" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600">Get your API key here</a>';
+    h+='</div>';
+  }
+  h+='<div style="display:flex;gap:8px;justify-content:flex-end">';
+  h+='<button onclick="setupBack()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px">Back</button>';
+  h+='<button onclick="setupNext()" style="background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">Continue</button>';
+  h+='</div>';
+  return h;
+}
+
+function _stepTest(){var h='';
+  h+='<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">Test Connection</h2>';
+  h+='<p style="font-size:12px;color:var(--text-dim);margin-bottom:16px">Verifying your setup works...</p>';
+  h+='<div id="wizardTestStatus" style="text-align:center;padding:30px 0">';
+  h+='<div id="wizardTestDot" style="width:16px;height:16px;border-radius:50%;background:var(--warn);margin:0 auto 12px"></div>';
+  h+='<div id="wizardTestText" style="font-size:13px;font-weight:600;color:var(--warn)">Testing...</div>';
+  h+='<div id="wizardTestMsg" style="font-size:11px;color:var(--text-muted);margin-top:4px">Connecting to provider</div>';
+  h+='</div>';
+  h+='<div id="wizardTestActions" style="display:none;flex-direction:column;gap:8px">';
+  h+='<button onclick="setupNext()" style="background:var(--accent);color:#fff;border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Continue to Project</button>';
+  h+='<button onclick="setupBack()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px;border-radius:6px;cursor:pointer;font-size:11px">Go Back</button>';
+  h+='</div></div>';
+  setTimeout(function(){runWizardTest();},500);
+  return h;
+}
+
+function _stepProject(){var h='';
+  h+='<h2 style="font-size:18px;font-weight:700;margin-bottom:4px">Create Your First Project</h2>';
+  h+='<p style="font-size:12px;color:var(--text-dim);margin-bottom:16px">What are you building?</p>';
+  var templates=[
+    {id:'web',name:'Web App',desc:'HTML/CSS/JS website or web app',icon:'#'},
+    {id:'game',name:'Game',desc:'Browser game or game concept',icon:'$'},
+    {id:'content',name:'Content',desc:'Writing, translation, or content pipeline',icon:'%'},
+    {id:'tool',name:'Developer Tool',desc:'CLI tool, script, or automation',icon:'!'},
+    {id:'empty',name:'Empty Project',desc:'Start from scratch',icon:'o'},
+  ];
+  h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px">';
+  templates.forEach(function(t){
+    h+='<div onclick="selectTemplate(\''+t.id+'\')" style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:12px;cursor:pointer;text-align:center" onmouseover="this.style.borderColor=\'var(--accent)\'" onmouseout="this.style.borderColor=\'var(--border)\'">';
+    h+='<div style="font-size:18px;margin-bottom:4px">'+t.icon+'</div>';
+    h+='<div style="font-size:11px;font-weight:600">'+t.name+'</div>';
+    h+='<div style="font-size:9px;color:var(--text-muted);margin-top:2px">'+t.desc+'</div>';
+    h+='</div>';
+  });
+  h+='</div>';
+  h+='<div style="margin-bottom:12px">';
+  h+='<label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:4px">Project Name</label>';
+  h+='<input id="wizardProjName" value="" placeholder="My First Project" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;outline:none"></div>';
+  h+='<div style="margin-bottom:16px">';
+  h+='<label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:4px">Description</label>';
+  h+='<textarea id="wizardProjDesc" rows="2" placeholder="What does this project do?" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:12px;resize:vertical;outline:none"></textarea></div>';
+  h+='<div style="display:flex;gap:8px;justify-content:flex-end">';
+  h+='<button onclick="setupBack()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px">Back</button>';
+  h+='<button onclick="setupNext()" style="background:var(--accent);color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">Create Project</button>';
+  h+='</div>';
+  return h;
+}
+
+function _stepDone(){var h='';
+  h+='<div style="text-align:center;padding:30px 0">';
+  h+='<div style="font-size:40px;margin-bottom:12px">OK</div>';
+  h+='<h2 style="font-size:20px;font-weight:700;margin-bottom:8px">You are all set!</h2>';
+  h+='<p style="font-size:13px;color:var(--text-dim);margin-bottom:20px">Your project is ready.</p>';
+  h+='<div style="background:var(--bg);border-radius:10px;padding:16px;margin-bottom:20px;text-align:left">';
+  h+='<div style="font-size:11px;font-weight:600;margin-bottom:8px">Configured:</div>';
+  h+='<div style="font-size:11px;color:var(--text-dim);line-height:1.8">';
+  h+='<div>Model: <strong style="color:var(--text)">'+(_setupConfig.model||'Not set')+'</strong></div>';
+  h+='<div>Project: <strong style="color:var(--text)">'+(_setupConfig.projectName||'Not set')+'</strong></div>';
+  h+='<div>API: <strong style="color:#00b894">Tested OK</strong></div>';
+  h+='</div></div>';
+  h+='<div style="display:flex;gap:8px;justify-content:center">';
+  h+='<button onclick="openProject(\''+(_setupConfig.projectId||'p1')+'\');showOSPage(\'dashboard\')" style="background:var(--accent);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Open Dashboard</button>';
+  h+='</div></div>';
+  return h;
+}
+
+window.selectProvider=function(id){
+  _setupConfig.model=id;
+  if(id==='ollama'){_setupConfig.apiUrl='http://127.0.0.1:11434';}
+  else if(id==='openrouter_free'){_setupConfig.apiUrl='https://openrouter.ai/api/v1';_setupConfig.model='openrouter/google/gemini-2.0-flash-001:free';}
+  else if(id==='openrouter'){_setupConfig.apiUrl='https://openrouter.ai/api/v1';_setupConfig.model='openrouter/owl-alpha';}
+  else if(id==='google'){_setupConfig.apiUrl='https://generativelanguage.googleapis.com/v1beta';_setupConfig.model='google/gemini-2.0-flash-001';}
+  else if(id==='deepseek'){_setupConfig.apiUrl='https://api.deepseek.com/v1';_setupConfig.model='deepseek/deepseek-chat';}
+  renderOSPage('setup');
+};
+
+window.selectTemplate=function(id){
+  var names={web:'My Web App',game:'My Game',content:'Content Project',tool:'Dev Tool',empty:'New Project'};
+  var descs={web:'A web application',game:'A browser-based game',content:'Content creation pipeline',tool:'A developer tool',empty:'A fresh project'};
+  _setupConfig.projectName=names[id]||'New Project';
+  _setupConfig.projectDesc=descs[id]||'';
+  var inp=document.getElementById('wizardProjName');
+  if(inp)inp.value=_setupConfig.projectName;
+  var desc=document.getElementById('wizardProjDesc');
+  if(desc)desc.value=_setupConfig.projectDesc;
+};
+
+window.setupNext=function(){
+  if(_setupStep===2){
+    var keyEl=document.getElementById('wizardApiKey');
+    var urlEl=document.getElementById('wizardApiUrl');
+    if(keyEl)_setupConfig.apiKey=keyEl.value.trim();
+    if(urlEl)_setupConfig.apiUrl=urlEl.value.trim();
+  }
+  if(_setupStep===4){
+    var nameEl=document.getElementById('wizardProjName');
+    var descEl=document.getElementById('wizardProjDesc');
+    if(nameEl)_setupConfig.projectName=nameEl.value.trim();
+    if(descEl)_setupConfig.projectDesc=descEl.value.trim();
+    _createProjectFromWizard();
+  }
+  _setupStep++;
+  renderOSPage('setup');
+};
+
+window.setupBack=function(){
+  if(_setupStep>0)_setupStep--;
+  renderOSPage('setup');
+};
+
+function _createProjectFromWizard(){
+  var pid='p'+(Date.now()%100000);
+  _setupConfig.projectId=pid;
+  var newProj={id:pid,name:_setupConfig.projectName||'New Project',color:'var(--accent)',status:'active',desc:_setupConfig.projectDesc||'',url:'',kanban:{todo:[],doing:[],review:[],done:[]},agents:['a1','a2','a5']};
+  S.projects.push(newProj);
+  localStorage.setItem('hd_projects2',JSON.stringify(S.projects));
+  S.settings.apiKey=_setupConfig.apiKey;
+  S.settings.apiUrl=_setupConfig.apiUrl;
+  localStorage.setItem('hd_settings',JSON.stringify(S.settings));
+  if(S.agentConfigs&&S.agentConfigs[0]){S.agentConfigs[0].model=_setupConfig.model;localStorage.setItem('hd_agents',JSON.stringify(S.agentConfigs));}
+}
+
+function runWizardTest(){
+  var url=_setupConfig.apiUrl||'https://openrouter.ai/api/v1';
+  var key=_setupConfig.apiKey||'';
+  var model=_setupConfig.model||'';
+  var provider=model.split('/')[0];
+  var testUrl=url.replace(/\/+$/,'')+'/models';
+  var headers={'Content-Type':'application/json'};
+  if(key&&(provider==='openrouter')){headers['Authorization']='Bearer '+key;headers['HTTP-Referer']='https://hermes-dashboard.local';}
+  else if(key&&(provider==='deepseek')){headers['Authorization']='Bearer '+key;}
+  if(provider==='ollama'){testUrl=url+'/api/tags';}
+  var dot=document.getElementById('wizardTestDot');
+  var txt=document.getElementById('wizardTestText');
+  var msg=document.getElementById('wizardTestMsg');
+  var actions=document.getElementById('wizardTestActions');
+  fetch(testUrl,{method:'GET',headers:headers,signal:AbortSignal.timeout(8000)})
+    .then(function(r){
+      if(r.ok){return r.json().then(function(d){
+        dot.style.background='#00b894';dot.style.boxShadow='0 0 10px #00b894';
+        txt.textContent='Connected!';txt.style.color='#00b894';
+        msg.textContent='Provider ready'+(d.data&&d.data.length?' ('+d.data.length+' models)':'');
+        actions.style.display='flex';
+      });}
+      else if(r.status===401||r.status===403){
+        dot.style.background='#ef4444';txt.textContent='Invalid key';txt.style.color='#ef4444';msg.textContent='Check your API key';actions.style.display='flex';
+      } else {
+        dot.style.background='#ef4444';txt.textContent='HTTP '+r.status;txt.style.color='#ef4444';msg.textContent='Check URL';actions.style.display='flex';
+      }
+    })
+    .catch(function(e){
+      dot.style.background='#ef4444';txt.textContent='Failed';txt.style.color='#ef4444';msg.textContent=e.message||'Could not connect';actions.style.display='flex';
+    });
+}
+
+// ═══ COST TRACKING ═══
+window.getCostTracking=function(){try{return JSON.parse(localStorage.getItem('hd_costs'))||{};}catch(e){return{};}};
+window.trackCost=function(agentId,tokens,costUsd){
+  var costs=getCostTracking();
+  if(!costs[agentId])costs[agentId]={tokens:0,cost:0,calls:0};
+  costs[agentId].tokens+=tokens;costs[agentId].cost+=costUsd;costs[agentId].calls+=1;costs[agentId].lastUsed=Date.now();
+  localStorage.setItem('hd_costs',JSON.stringify(costs));
+};
+
+window._activeConsoleAgent=_activeConsoleAgent;
+
+// ═══ HERMES CONFIG & LAUNCH ═══
+window.openHermesConfig=function(agentId){
+  var ag=getAgentById(agentId);if(!ag)return;
+  var curModel=ag.model||'openrouter/owl-alpha';
+  var curKey=S.settings&&S.settings.apiKey||'';
+  var curUrl=S.settings&&S.settings.apiUrl||'https://openrouter.ai/api/v1';
+  var provider=curModel.split('/')[0];
+
+  // Provider config
+  var providers={
+    openrouter:{name:'OpenRouter',keysUrl:'https://openrouter.ai/keys',docsUrl:'https://openrouter.ai/docs/api-keys',testPath:'/models',keyPrefix:'sk-or-'},
+    google:{name:'Google AI Studio',keysUrl:'https://aistudio.google.com/apikey',docsUrl:'https://ai.dev/docs/apikey',testPath:'/v1beta/models',keyPrefix:'AIza'},
+    deepseek:{name:'DeepSeek',keysUrl:'https://platform.deepseek.com/api_keys',docsUrl:'https://platform.deepseek.com/docs',testPath:'/models',keyPrefix:'sk-'},
+  };
+  var prov=providers[provider]||providers.openrouter;
+
+  // Build config modal
+  var html='<div style="max-height:70vh;overflow-y:auto">';
+  html+='<div style="font-size:12px;font-weight:700;margin-bottom:12px">Hermes Config — '+ag.name+' ('+ag.role+')</div>';
+
+  // ── API Status Light ──
+  html+='<div id="apiStatusRow" style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:8px;margin-bottom:12px">';
+  html+='<div id="apiStatusDot" style="width:12px;height:12px;border-radius:50%;background:var(--text-muted);border:2px solid var(--border)"></div>';
+  html+='<div style="flex:1">';
+  html+='<div id="apiStatusText" style="font-size:11px;font-weight:600;color:var(--text-dim)">Not tested</div>';
+  html+='<div id="apiStatusMsg" style="font-size:9px;color:var(--text-muted)">Click "Test Connection" to verify</div>';
+  html+='</div>';
+  html+='</div>';
+
+  // ── Provider quick link ──
+  html+='<div style="margin-bottom:10px;display:flex;align-items:center;gap:6px">';
+  html+='<span style="font-size:10px;color:var(--text-muted)">Provider: <strong style="color:var(--text)">'+prov.name+'</strong></span>';
+  html+='<a href="'+prov.keysUrl+'" target="_blank" style="font-size:9px;color:var(--accent);text-decoration:none">Get API Key</a>';
+  html+='<span style="font-size:9px;color:var(--text-muted)">·</span>';
+  html+='<a href="'+prov.docsUrl+'" target="_blank" style="font-size:9px;color:var(--accent);text-decoration:none">Docs</a>';
+  html+='</div>';
+
+  // ── Model ──
+  html+='<div style="margin-bottom:10px"><label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:3px">Model</label>';
+  html+='<select id="cfgModel" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px">';
+  var models=[
+    {v:'openrouter/owl-alpha',l:'Owl Alpha (OpenRouter)'},
+    {v:'openrouter/google/gemini-2.0-flash-001',l:'Gemini 2.0 Flash (via OpenRouter)'},
+    {v:'openrouter/deepseek/deepseek-chat',l:'DeepSeek Chat (via OpenRouter)'},
+    {v:'openrouter/google/gemma-4',l:'Gemma 4 (via OpenRouter)'},
+    {v:'google/gemini-2.0-flash-001',l:'Gemini 2.0 Flash (Google Direct)'},
+    {v:'deepseek/deepseek-chat',l:'DeepSeek Chat (Direct)'},
+  ];
+  models.forEach(function(m){html+='<option value="'+m.v+'"'+(curModel===m.v?' selected="selected"':"")+'>'+m.l+'</option>';});
+  html+='</select></div>';
+
+  // ── API URL ──
+  html+='<div style="margin-bottom:10px"><label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:3px">API URL</label>';
+  html+='<input id="cfgUrl" value="'+curUrl+'" style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px;outline:none"></div>';
+
+  // ── API Key ──
+  html+='<div style="margin-bottom:10px"><label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:3px">API Key</label>';
+  html+='<div style="display:flex;gap:6px">';
+  html+='<input id="cfgKey" value="'+curKey+'" type="password" placeholder="'+prov.keyPrefix+'..." style="flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:12px;outline:none">';
+  html+='<button onclick="document.getElementById(\'cfgKey\').type=document.getElementById(\'cfgKey\').type===\'password\'?\'text\':\'password\'" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:4px 8px;border-radius:4px;cursor:pointer;font-size:10px">Show</button>';
+  html+='</div>';
+  if(curKey) html+='<div style="font-size:9px;color:var(--text-muted);margin-top:3px">Current: '+curKey.substring(0,8)+'...'+curKey.substring(curKey.length-4)+'</div>';
+  html+='</div>';
+
+  // ── Test Button ──
+  html+='<button id="btnTestApi" onclick="testApiConnectionLive(\''+agentId+'\')" style="width:100%;background:var(--bg-card);border:1px solid var(--accent);color:var(--accent);padding:8px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;margin-bottom:10px">Test Connection</button>';
+
+  // ── System Prompt ──
+  html+='<div style="margin-bottom:10px"><label style="display:block;font-size:10px;color:var(--text-muted);margin-bottom:3px">System Prompt (optional)</label>';
+  html+='<textarea id="cfgPrompt" rows="3" placeholder="Custom system prompt..." style="width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;font-size:11px;resize:vertical;outline:none;font-family:inherit">'+(ag.systemPrompt||'')+'</textarea></div>';
+
+  html+='</div>';
+
+  // Show modal
+  var modal=document.createElement('div');
+  modal.id='cfgModal';
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center';
+  modal.innerHTML='<div style="background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;padding:20px;width:440px;max-width:90%;box-shadow:0 20px 60px rgba(0,0,0,.6)">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'+
+      '<span style="font-size:14px;font-weight:700">Agent Config</span>'+
+      '<button onclick="document.getElementById(\'cfgModal\').remove()" style="background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:16px">&#10005;</button>'+
+    '</div>'+
+    html+
+    '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">'+
+      '<button onclick="document.getElementById(\'cfgModal\').remove()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px">Cancel</button>'+
+      '<button onclick="saveHermesConfig(\''+agentId+'\')" style="background:var(--accent);color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">Save</button>'+
+    '</div>';
+  document.body.appendChild(modal);
+};
+
+window.testApiConnectionLive=function(agentId){
+  var url=document.getElementById('cfgUrl').value.trim();
+  var key=document.getElementById('cfgKey').value.trim();
+  var model=document.getElementById('cfgModel').value;
+  var provider=model.split('/')[0];
+  var dot=document.getElementById('apiStatusDot');
+  var txt=document.getElementById('apiStatusText');
+  var msg=document.getElementById('apiStatusMsg');
+  var btn=document.getElementById('btnTestApi');
+
+  // Reset
+  dot.style.background='var(--warn)';
+  dot.style.boxShadow='0 0 8px var(--warn)';
+  txt.textContent='Testing...';
+  txt.style.color='var(--warn)';
+  msg.textContent='Connecting to '+url+'...';
+  btn.disabled=true;
+  btn.textContent='Testing...';
+
+  // Determine test endpoint
+  var testUrl=url;
+  if(provider==='openrouter'||url.indexOf('openrouter')>=0){
+    testUrl=url.replace(/\/+$/,'')+'/models';
+  } else if(provider==='google'){
+    testUrl=url.replace(/\/+$/,'')+'/v1beta/models?key='+key;
+  } else if(provider==='deepseek'){
+    testUrl=url.replace(/\/+$/,'')+'/models';
+  }
+
+  // Build headers
+  var headers={'Content-Type':'application/json'};
+  if(key){
+    if(provider==='openrouter'||url.indexOf('openrouter')>=0){
+      headers['Authorization']='Bearer '+key;
+      headers['HTTP-Referer']='https://hermes-dashboard.local';
+      headers['X-Title']='Hermes Dashboard';
+    } else if(provider==='google'){
+      // Google uses query param, not header
+    } else {
+      headers['Authorization']='Bearer '+key;
+    }
+  }
+
+  // Test with timeout
+  var controller=new AbortController();
+  var timeout=setTimeout(function(){controller.abort()},8000);
+
+  fetch(testUrl,{method:'GET',headers:headers,signal:controller.signal})
+    .then(function(r){
+      clearTimeout(timeout);
+      btn.disabled=false;
+      btn.textContent='Test Connection';
+      if(r.ok){
+        return r.json().then(function(data){
+          // Success
+          dot.style.background='#00b894';
+          dot.style.boxShadow='0 0 8px #00b894';
+          dot.className='';
+          txt.textContent='Connected — API key valid';
+          txt.style.color='#00b894';
+          var modelCount='';
+          if(data.data&&data.data.length) modelCount=' ('+data.data.length+' models available)';
+          else if(data.models&&data.models.length) modelCount=' ('+data.models.length+' models available)';
+          msg.textContent='Provider: '+provider+modelCount;
+        });
+      } else if(r.status===401||r.status===403){
+        // Auth failed
+        dot.style.background='#ef4444';
+        dot.style.boxShadow='0 0 8px #ef4444';
+        txt.textContent='Authentication failed';
+        txt.style.color='#ef4444';
+        msg.textContent='Invalid or expired API key. Get a new key from your provider.';
+      } else if(r.status===429){
+        dot.style.background='#f59e0b';
+        dot.style.boxShadow='0 0 8px #f59e0b';
+        txt.textContent='Rate limited';
+        txt.style.color='#f59e0b';
+        msg.textContent='Too many requests. Wait a moment and try again.';
+      } else {
+        dot.style.background='#ef4444';
+        dot.style.boxShadow='0 0 8px #ef4444';
+        txt.textContent='HTTP '+r.status;
+        txt.style.color='#ef4444';
+        msg.textContent='Unexpected response. Check API URL.';
+      }
+    })
+    .catch(function(e){
+      clearTimeout(timeout);
+      btn.disabled=false;
+      btn.textContent='Test Connection';
+      dot.style.background='#ef4444';
+      dot.style.boxShadow='0 0 8px #ef4444';
+      if(e.name==='AbortError'){
+        txt.textContent='Connection timeout';
+        txt.style.color='#ef4444';
+        msg.textContent='Server did not respond in 8s. Check URL and network.';
+      } else {
+        txt.textContent='Connection failed';
+        txt.style.color='#ef4444';
+        msg.textContent=e.message||'Could not reach server. Check URL.';
+      }
+    });
+};
+
+window.saveHermesConfig=function(agentId){
+  var model=document.getElementById('cfgModel').value;
+  var url=document.getElementById('cfgUrl').value.trim();
+  var key=document.getElementById('cfgKey').value.trim();
+  var prompt=document.getElementById('cfgPrompt').value.trim();
+
+  // Save to settings
+  S.settings.apiUrl=url;
+  S.settings.apiKey=key;
+  localStorage.setItem('hd_settings',JSON.stringify(S.settings));
+
+  // Update agent model
+  var ag=getAgentById(agentId);
+  if(ag)ag.model=model;
+  if(prompt&&ag)ag.systemPrompt=prompt;
+
+  // Save agent configs
+  localStorage.setItem('hd_agents',JSON.stringify(S.agentConfigs));
+
+  document.getElementById('cfgModal').remove();
+  toast('Config saved for '+(ag?ag.name:agentId),'ok');
+};
+
+window.launchHermesPs=function(agentId){
+  var ag=getAgentById(agentId);if(!ag)return;
+  var model=ag.model||'openrouter/owl-alpha';
+  var proj=S.projects.find(function(p){return p.id===S.curProj;});
+  var projName=proj?proj.name:'Unknown';
+  var title=projName+' | '+ag.name+' ('+ag.role+')';
+
+  // Build the PowerShell command
+  var psCmd='$host.ui.RawUI.WindowTitle = "'+title+'"; '+
+    'Set-Location "'+S.settings.workdir||'C:\\Users\\irieb'+'"; '+
+    'Write-Host "'+title+'" -ForegroundColor Cyan; '+
+    'Write-Host "Model: '+model+'" -ForegroundColor Yellow; '+
+    'Write-Host "Type your message to begin..." -ForegroundColor Gray; '+
+    'Write-Host ""; '+
+    'hermes chat -m "'+model+'" --cli';
+
+  // Copy to clipboard and show instruction
+  navigator.clipboard.writeText(psCmd).then(function(){
+    toast('Command copied! Paste in a new PowerShell window.','ok');
+  });
+
+  // Also try to open PowerShell directly via protocol (may not work in all browsers)
+  var batContent='@echo title '+title+' && cd /d "C:\\Users\\irieb" && hermes chat -m "'+model+'" --cli';
+  var blob=new Blob([batContent],{type:'text/plain'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='launch-'+agentId+'.bat';
+  a.click();
+
+  addLog('Launched '+ag.name+' ('+model+') — .bat file downloaded','ok');
+};
 
 })();
 
